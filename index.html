@@ -1,0 +1,38 @@
+<html>
+<head>
+    <!-- Core Bundle -->
+    <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+    <!-- ADD THIS SCRIPT: It contains the StandaloneLayout -->
+    <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+    <link rel="stylesheet"
+          type="text/css"
+          href="https://unpkg.com/swagger-ui-dist/swagger-ui.css"/>
+
+    <title>edgeConfigurator API documentation</title>
+</head>
+
+<body>
+<div id="swagger-ui"></div>
+<script>
+window.onload = function () {
+    SwaggerUIBundle({
+        urls: [
+            { url: "./SDEX Suite Linux.json", name: "Linux" },
+            { url: "./SDEX Suite Windows.json", name: "Windows" }
+        ],
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+            SwaggerUIBundle.presets.apis,
+            SwaggerUIStandalonePreset
+        ],
+        plugins: [
+            SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout",
+        queryConfigEnabled: true  
+    })
+}
+</script>
+</body>
+</html>

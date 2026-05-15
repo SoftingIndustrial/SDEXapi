@@ -1,0 +1,21 @@
+image: ${CI_REGISTRY}/utilities/build-images/ubuntu-18-04-build:master
+stages:
+  - deploy
+
+deploy:toGithub:
+  stage: deploy
+  when: manual
+  only:
+    - branches
+  tags:
+    - docker
+  environment:
+    name: github
+    url: https://github.com/SoftingIndustrial/SDEXapi
+  script:
+    - git fetch --unshallow || true
+    - git lfs fetch --all
+    - git remote add public https://oauth2:${DOC_TOKEN}@github.com/SoftingIndustrial/SDEXapi.git
+    - git push --force public HEAD:${CI_COMMIT_REF_NAME}
+  after_script:
+    - git remote remove public || true
