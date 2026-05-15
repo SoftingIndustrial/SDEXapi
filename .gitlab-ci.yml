@@ -15,7 +15,7 @@ deploy:toGithub:
   script:
     - git fetch --unshallow || true
     - git lfs fetch --all
-    - git remote add public https://oauth2:${DOC_TOKEN}@github.com/SoftingIndustrial/SDEXapi.git
+    - git remote add public https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/SoftingIndustrial/SDEXapi.git
     - git push --force public HEAD:${CI_COMMIT_REF_NAME}
   after_script:
     - git remote remove public || true
