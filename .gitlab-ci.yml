@@ -20,5 +20,7 @@ mirror:toGithub:
     - git config --global user.name "GitLab CI"
     - git config --global user.email "ci@example.com"
     - git remote add github https://x-access-token:${GITHUB_TOKEN}@github.com/SoftingIndustrial/SDEXapi.git
-    - git push --mirror github
+    - git fetch origin "+refs/heads/*:refs/heads/*" --prune
+    - git push github --all
+    - git push github --tags
     
