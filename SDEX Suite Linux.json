@@ -99,6 +99,9 @@
     },
     {
       "name": "Uacore_Subscriptions_And_Monitored_Items_Options"
+    },
+    {
+      "name": "HTTP UA Server"
     }
   ],
   "paths": {
@@ -5530,10 +5533,11 @@
         "tags": [
           "Uacore_Application_Identity"
         ],
-        "description": "Get the server identity.",
+        "summary": "Get the server identity",
+        "description": "Retrieves the identity information of the server, including name, URI, and product URI.",
         "responses": {
           "200": {
-            "description": "OK success.",
+            "description": "Successful response returning server identity.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5545,634 +5549,18 @@
                   ],
                   "properties": {
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Server name"
                     },
                     "uri": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Server URI"
                     },
                     "product-uri": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Product URI identifying the server software"
                     }
                   }
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/subscriptions-merging": {
-      "get": {
-        "tags": [
-          "Uacore_Subscriptions_And_Monitored_Items_Options"
-        ],
-        "description": "Gets the core Subscriptions and Monitored Items options.",
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "merging"
-                  ],
-                  "properties": {
-                    "merging": {
-                      "type": "boolean",
-                      "description": "The merging parameter can have the following values false - subscriptions and monitored items are never merged and the relation of subscriptions to monitored items is preserved; true - monitored items are merged if node ID, attribute, sampling interval, queue size, discard oldest, and the publishing interval of the subscription are the same.",
-                      "enum": [
-                        true,
-                        false
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/subscriptions": {
-      "post": {
-        "tags": [
-          "Uacore_Subscriptions_And_Monitored_Items_Options"
-        ],
-        "description": "Sets the core Subscriptions and Monitored Items options. If called while in running mode, changing the merging parameter will trigger a restart (going to halted and back to running mode).",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "merging"
-                ],
-                "properties": {
-                  "merging": {
-                    "type": "boolean",
-                    "description": "The merging parameter can have the following values false - subscriptions and monitored items are never merged and the relation of subscriptions to monitored items is preserved; true - monitored items are merged if node ID, attribute, sampling interval, queue size, discard oldest, and the publishing interval of the subscription are the same.",
-                    "enum": [
-                      true,
-                      false
-                    ]
-                  }
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/nodesetxml": {
-      "get": {
-        "tags": [
-          "Uacore_NodeSetXml"
-        ],
-        "description": "Get xml files stored in <configuration base>\\uacore\\nodeset as a json list",
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "required": [
-                    "fileName"
-                  ],
-                  "items": {
-                    "properties": {
-                      "fileName": {
-                        "type": "string",
-                        "example": "OPC.MDIS.NodeSet2.xml"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/nodesetxml/{fileName.xml}": {
-      "post": {
-        "tags": [
-          "Uacore_NodeSetXml"
-        ],
-        "description": "Creates the specified xml under folder <configuration base>\\uacore\\nodeset.",
-        "parameters": [
-          {
-            "name": "fileName.xml",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/xml": {
-              "schema": {
-                "type": "string",
-                "format": "binary"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Uacore_NodeSetXml"
-        ],
-        "description": "Deletes the specified xml from folder <configuration base>\\uacore\\nodeset. In order for these commands to work, creation of <configuration base>\\core\\nodeset folder is mandatory. Xml files will be imported only on start time or on restart; during upload the content just xml basic validation is applied. In case of duplicate nodes found on import, the operation fails but the node id is specifed in error logs. Max file size is 10MB (with corresponding nginx config -> \u201cclient_max_body_size 10M; \u201c in http section.",
-        "parameters": [
-          {
-            "name": "fileName.xml",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/namespaces/index-array": {
-      "get": {
-        "tags": [
-          "Uacore_Namespaces_Management"
-        ],
-        "description": "Retrieves the current state of the Namespace Index Array of the internal Opc Ua Server. It works only in running mode, and it is used only for ease the access to the mappping between the registered Namespace URIs and their corresponding indexes.",
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": [
-                      "namespaceUri",
-                      "namespaceIndex"
-                    ],
-                    "properties": {
-                      "namespaceUri": {
-                        "type": "string"
-                      },
-                      "namespaceIndex": {
-                        "type": "integer"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/namespaces/reset": {
-      "post": {
-        "tags": [
-          "Uacore_Namespaces_Management"
-        ],
-        "description": "Recreates the namespaces indexes/URIs mapping at the next transition into the running state of the system, keeping only the actual used ones.",
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Service Unavailable.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/namespaces/register": {
-      "post": {
-        "tags": [
-          "Uacore_Namespaces_Management"
-        ],
-        "description": "Registers a UA namespace (no effect if the URI is already registered). Returns the allocated namespace index.It works only in running mode, and it is used only for making easier to test dataFEED SIS.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "namespaceUri"
-                ],
-                "properties": {
-                  "namespaceUri": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "namespaceIndex": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Service Unavailable.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/addressspace-export/{sessionTypeName}": {
-      "get": {
-        "tags": [
-          "Address_Space_Export"
-        ],
-        "description": "Get the previously generated NodeSet2 XML file for the addresspace paired with sessionTypeName. It shall fail with 404 i",
-        "parameters": [
-          {
-            "name": "sessionTypeName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/xml": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "File was not found. It might have been deleted or its generation failed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "A nodeset export is in progress, once finalized retrieving the existing nodeset files shall work.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Address_Space_Export"
-        ],
-        "description": "Removes a previously generated NodeSet2 XML file for the addresspace paired with sessionTypeName if the file exists.",
-        "parameters": [
-          {
-            "name": "sessionTypeName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/xml": {
-                "schema": {
-                  "type": "string",
-                  "format": "binary"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "File not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/uacore/addressspace-export": {
-      "post": {
-        "tags": [
-          "Address_Space_Export"
-        ],
-        "description": "Triggers the generation of a NodeSet2 XML file describing the address space paired to the sessionTypeName. A separate is generated for each address space and once generated it has to be specifically removed otherwise it is preserved.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "sessionTypeName"
-                ],
-                "properties": {
-                  "sessionTypeName": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -6230,15 +5618,566 @@
         }
       }
     },
+    "/runtime/uacore/subscriptions-merging": {
+      "get": {
+        "tags": [
+          "Uacore_Subscriptions_And_Monitored_Items_Options"
+        ],
+        "summary": "Get subscriptions and monitored items merging configuration",
+        "description": "Gets the core Subscriptions and Monitored Items options that define whether monitored items are merged under compatible subscription settings.\n",
+        "responses": {
+          "200": {
+            "description": "Successful response with merging configuration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "merging"
+                  ],
+                  "properties": {
+                    "merging": {
+                      "type": "boolean",
+                      "description": "Defines whether subscriptions and monitored items are merged.\n\nfalse:\n  Subscriptions and monitored items are never merged,\n  and the relation between them is preserved.\n\ntrue:\n  Monitored items are merged when the following properties match:\n  - Node ID\n  - Attribute\n  - Sampling interval\n  - Queue size\n  - Discard oldest flag\n  - Publishing interval of the subscription\n"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/uacore/subscriptions": {
+      "post": {
+        "tags": [
+          "Uacore_Subscriptions_And_Monitored_Items_Options"
+        ],
+        "summary": "Set subscriptions and monitored items options",
+        "description": "Sets the core Subscriptions and Monitored Items options.\nNote: If called while the system is in running mode, changing the merging parameter will trigger a restart (transition to halted mode and back to running mode).\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "merging"
+                ],
+                "properties": {
+                  "merging": {
+                    "type": "boolean",
+                    "description": "Defines whether subscriptions and monitored items are merged.\nfalse:\n  Subscriptions and monitored items are never merged,\n  and their relationship is preserved.\n\ntrue:\n  Monitored items are merged when compatible based on:\n  - Node ID\n  - Attribute\n  - Sampling interval\n  - Queue size\n  - Discard oldest flag\n  - Subscription publishing interval\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/uacore/standard-nodeset": {
+      "put": {
+        "tags": [
+          "Uacore_NodeSetXml"
+        ],
+        "summary": "Update standard NodeSet",
+        "description": "Changes the standard NodeSet. The address space will use the new NodeSet after a restart.\nValidation rules: - The NodeSet must be valid XML. - The namespace URI must be `http://opcfoundation.org/UA/`. - If validation fails, the operation is aborted and the old NodeSet is kept.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string",
+                "description": "Raw XML content of the standard NodeSet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Standard NodeSet successfully updated",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid NodeSet XML or validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/uacore/namespaces-in-use": {
+      "get": {
+        "tags": [
+          "Uacore_Namespaces_Management"
+        ],
+        "summary": "Get namespaces currently in use",
+        "description": "Returns the current namespace URIs that are loaded and in use.\nNote: - Works only in running mode. - SDK and this endpoint may not fully overlap because removed namespaces\n  remain until restart due to SDK limitations.\n",
+        "responses": {
+          "200": {
+            "description": "List of namespaces in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "0": "http://opcfoundation.org/UA/"
+                  },
+                  {
+                    "2": "http://example.com/custom/ns"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/uacore/namespaces/index-array": {
+      "get": {
+        "tags": [
+          "Uacore_Namespaces_Management"
+        ],
+        "summary": "Get namespace index array",
+        "description": "Retrieves the current Namespace Index Array of the internal OPC UA server.\nNote: - Works only in running mode. - Used to map namespace URIs to their corresponding indexes.\n",
+        "responses": {
+          "200": {
+            "description": "Namespace index mapping",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "namespaceUri",
+                      "namespaceIndex"
+                    ],
+                    "properties": {
+                      "namespaceUri": {
+                        "type": "string"
+                      },
+                      "namespaceIndex": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "namespaceUri": "http://opcfoundation.org/UA/",
+                    "namespaceIndex": 0
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/uacore/namespaces/reset": {
+      "post": {
+        "tags": [
+          "Uacore_Namespaces_Management"
+        ],
+        "summary": "Reset namespace mappings",
+        "description": "Recreates the namespace index/URI mapping on the next transition into running state, keeping only currently used namespaces.\n",
+        "responses": {
+          "200": {
+            "description": "Namespace reset scheduled successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/uacore/namespaces/register": {
+      "post": {
+        "tags": [
+          "Uacore_Namespaces_Management"
+        ],
+        "summary": "Register a UA namespace",
+        "description": "Registers a UA namespace. Has no effect if the URI is already registered.\nNote: - Works only in running mode. - Intended to simplify testing and integration scenarios.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "namespaceUri"
+                ],
+                "properties": {
+                  "namespaceUri": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Namespace registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "namespaceIndex"
+                  ],
+                  "properties": {
+                    "namespaceIndex": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "example": {
+                  "namespaceIndex": 3
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/runtime/uacore/sights/conn-filtering/definition": {
       "get": {
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Get the list of configured sights, together with the allowed connection names for each.",
+        "summary": "Get all sight connection filtering definitions",
+        "description": "Returns the list of configured sights together with their allowed connection names.\n",
         "responses": {
           "200": {
-            "description": "OK success.",
+            "description": "List of sight definitions",
             "content": {
               "application/json": {
                 "schema": {
@@ -6247,11 +6186,15 @@
                     "type": "object",
                     "required": [
                       "sightName",
+                      "displayName",
                       "active",
                       "connections"
                     ],
                     "properties": {
                       "sightName": {
+                        "type": "string"
+                      },
+                      "displayName": {
                         "type": "string"
                       },
                       "active": {
@@ -6269,8 +6212,18 @@
               }
             }
           },
+          "400": {
+            "description": "Unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
-            "description": "Not Found.",
+            "description": "Not found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6281,6 +6234,16 @@
           },
           "500": {
             "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6305,9 +6268,10 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Adds a sight definition, by specifying the name and the list of allowed connection names.",
+        "summary": "Add a sight definition",
+        "description": "Adds a sight definition with allowed connection names.\nNote: - `type` can be `type-static` or `type-external` - If `active` is not specified, default is `true`\n",
         "requestBody": {
-          "description": "If not specified in JSON, the default active state is true.",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -6315,7 +6279,6 @@
                 "required": [
                   "sightName",
                   "type",
-                  "active",
                   "connections"
                 ],
                 "properties": {
@@ -6341,12 +6304,11 @@
                 }
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
-            "description": "OK success.",
+            "description": "Sight definition created/updated successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6393,7 +6355,8 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Get the list of configured sights for which the type is type-external, together with the allowed connection names for each.",
+        "summary": "Get external sights",
+        "description": "Returns sights with type `type-external` and their allowed connections.\n",
         "responses": {
           "200": {
             "description": "OK success.",
@@ -6405,11 +6368,15 @@
                     "type": "object",
                     "required": [
                       "sightName",
+                      "displayName",
                       "active",
                       "connections"
                     ],
                     "properties": {
                       "sightName": {
+                        "type": "string"
+                      },
+                      "displayName": {
                         "type": "string"
                       },
                       "active": {
@@ -6423,6 +6390,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -6465,7 +6442,8 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Get the list of configured sights for which the type is type-static, together with the allowed.",
+        "summary": "Get static sights",
+        "description": "Returns sights with type `type-static` and their allowed connections.\n",
         "responses": {
           "200": {
             "description": "OK success.",
@@ -6477,11 +6455,15 @@
                     "type": "object",
                     "required": [
                       "sightName",
+                      "displayName",
                       "active",
                       "connections"
                     ],
                     "properties": {
                       "sightName": {
+                        "type": "string"
+                      },
+                      "displayName": {
                         "type": "string"
                       },
                       "active": {
@@ -6495,6 +6477,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -6537,7 +6529,8 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Get the definition of the specified <sightName> sight.",
+        "summary": "Get sight definition",
+        "description": "Returns the definition of a specific sight.",
         "parameters": [
           {
             "name": "sightName",
@@ -6557,11 +6550,15 @@
                   "type": "object",
                   "required": [
                     "sightName",
+                    "displayName",
                     "active",
                     "connections"
                   ],
                   "properties": {
                     "sightName": {
+                      "type": "string"
+                    },
+                    "displayName": {
                       "type": "string"
                     },
                     "active": {
@@ -6574,6 +6571,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -6614,7 +6621,8 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Change the specified sight definition by redefineing the list of allowed connection names.",
+        "summary": "Update sight definition",
+        "description": "Updates an existing sight definition.\nNote: Only fields that need to change must be provided.\n",
         "parameters": [
           {
             "name": "sightName",
@@ -6707,6 +6715,7 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
+        "summary": "Delete sight definition",
         "description": "Deletes the specified sight definition.",
         "parameters": [
           {
@@ -6777,7 +6786,8 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Retrieves the list of configured sessions-to-sights map.",
+        "summary": "Get session-to-sight mappings",
+        "description": "Returns mapping between session types and sights.",
         "responses": {
           "200": {
             "description": "OK success.",
@@ -6800,6 +6810,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -6830,7 +6850,8 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
-        "description": "Adds/modify one entry in the list of sessions-to-sights map. If there is already a mapping for the specified session, it will be overwritten; if there is not, it will be created.The specified sight must exist as a defined connection filtering sight.",
+        "summary": "Add or update session-to-sight mapping",
+        "description": "Adds or updates a mapping between session type and sight.\nIf mapping exists, it is overwritten. The sight must already exist.\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -6902,6 +6923,7 @@
         "tags": [
           "Uacore_Sights_Management"
         ],
+        "summary": "Delete session-to-sight mapping",
         "description": "Delete the existing mapping for the specified session type.",
         "parameters": [
           {
@@ -6916,6 +6938,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -6962,7 +6994,8 @@
         "tags": [
           "Uacore_Sights_Node_Filter_Definition"
         ],
-        "description": "Get the information about the enable state of a filter for the specified sightName and sessionTypeName. A filter is automatically in active state if it exists physically in the configuration repository (as a result of a previous save). This command is available both in running and halted system states.",
+        "summary": "Get filter active state",
+        "description": "Retrieves whether a filter is active for the specified sight and session type.\nNote: - A filter is automatically active if it exists in the configuration repository. - Available in both running and halted modes.\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -7014,6 +7047,26 @@
               }
             }
           },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -7032,7 +7085,8 @@
         "tags": [
           "Uacore_Sights_Node_Filter_Definition"
         ],
-        "description": "Open a new \u201csession\u201d for nodes filter manipulation, for the specified sight name and session type.The return session id can be used for further calls which will act as definition (creation or modification) of the nodes filter.Calling this method invalidates and discards any progress on an already existing session for the specified sight name and session type.",
+        "summary": "Open filter editing session",
+        "description": "Opens a new session for nodes filter manipulation for a given sight and session type.\nNotes: - Existing sessions for the same sight/session type are invalidated. - browseSessionTypeName must exist and is used for browsing operations. - sessionTypeName must later be associated with the sight before saving.\n",
         "requestBody": {
           "content": {
             "application/json": {
@@ -7088,6 +7142,16 @@
               }
             }
           },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -7101,15 +7165,16 @@
         }
       }
     },
-    "/runtime/uacore/sights/nodes-filter/definition/{session-GUID}": {
+    "/runtime/uacore/sights/nodes-filter/definition/{sessionId}": {
       "delete": {
         "tags": [
           "Uacore_Sights_Node_Filter_Definition"
         ],
-        "description": "Remove the existent filter for the specified nodes filter definition session and invalidates the session (no further editing is allowed for the <session-GUID>).",
+        "summary": "Delete filter session definition",
+        "description": "Removes the filter definition for the given session and invalidates it.\n",
         "parameters": [
           {
-            "name": "session-GUID",
+            "name": "sessionId",
             "in": "path",
             "required": true,
             "schema": {
@@ -7171,15 +7236,16 @@
         }
       }
     },
-    "/runtime/uacore/sights/nodes-filter/{session-GUID}/save": {
+    "/runtime/uacore/sights/nodes-filter/{sessionId}/save": {
       "post": {
         "tags": [
           "Uacore_Sights_Node_Filter_Definition"
         ],
-        "description": "Save the current state of the filter definition for the specified nodes filter definition session and invalidates the session (no further editing is allowed for the <session-GUID>).",
+        "summary": "Save filter definition session",
+        "description": "Saves the current filter state and invalidates the session.\n",
         "parameters": [
           {
-            "name": "session-GUID",
+            "name": "sessionId",
             "in": "path",
             "required": true,
             "schema": {
@@ -7241,15 +7307,16 @@
         }
       }
     },
-    "/runtime/uacore/sights/nodes-filter/{session-GUID}/cancel": {
+    "/runtime/uacore/sights/nodes-filter/{sessionId}/cancel": {
       "post": {
         "tags": [
           "Uacore_Sights_Node_Filter_Definition"
         ],
-        "description": "Discard the current in-progress filter definition for the specified filter definition session and invalidates the session (no further editing is allowed for the <session-GUID>).",
+        "summary": "Cancel filter definition session",
+        "description": "Discards all changes made in the session and restores previous state.\n",
         "parameters": [
           {
-            "name": "session-GUID",
+            "name": "sessionId",
             "in": "path",
             "required": true,
             "schema": {
@@ -7311,15 +7378,16 @@
         }
       }
     },
-    "/runtime/uacore/sights/nodes-filter/{session-GUID}/nodes-edit": {
+    "/runtime/uacore/sights/nodes-filter/{sessionId}/nodes-edit": {
       "post": {
         "tags": [
           "Uacore_Sights_Node_Filter_Definition"
         ],
-        "description": "Updated a node\u2019s current service based filter mask definition (see details on the checked parameter below). The node will be recursively browsed on the corresponding source and the add/remove action will be applied to the node itself together with all the nodes in the sub-hierarchy discovered by hierarchical references.Depending on the value of \u201capplyToSubtree\u201d parameter, the action will be appied to the node only, or to the entire subtree.",
+        "summary": "Edit node filter mask",
+        "description": "Updates service-based filter mask for a node.\nBitmask: - Browse: 0x01 - Read: 0x02 - Write: 0x04 - Method call: 0x08 - Subscribe: 0x10 - UI reserved: 0x1000\n",
         "parameters": [
           {
-            "name": "session-GUID",
+            "name": "sessionId",
             "in": "path",
             "required": true,
             "schema": {
@@ -7342,29 +7410,17 @@
                     "type": "string"
                   },
                   "checked": {
-                    "type": "string",
-                    "description": "When the checked bit mask corresponding for a service is set on a node the service call execution is allowed on that node.*Special bit flag without any functional meaning, shall be reserved for UI logic as it allows to store an additional state used, for display purposes, to inform the user if any filters are set in a node's subtree.",
-                    "format": "binary",
-                    "example": "0x01",
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "Bitmask defining allowed services for a node.\n\nValues:\n- 1    = Browse\n- 2    = Read\n- 4    = Write\n- 8    = Method call\n- 16   = Subscribe\n- 4096 = UI reserved\n\nWhen the corresponding bit is set, the service is allowed on that node.\nThe UI reserved flag has no functional meaning and is only used for UI logic.\n",
+                    "example": 1,
                     "enum": [
-                      {
-                        "Browse": "0x01"
-                      },
-                      {
-                        "Read": "0x02"
-                      },
-                      {
-                        "Write": "0x04"
-                      },
-                      {
-                        "Method call": "0x08"
-                      },
-                      {
-                        "Subscribe": "0x10"
-                      },
-                      {
-                        "UI reserved*": "0x1000"
-                      }
+                      1,
+                      2,
+                      4,
+                      8,
+                      16,
+                      4096
                     ]
                   },
                   "applyToSubtree": {
@@ -7430,15 +7486,16 @@
         }
       }
     },
-    "/runtime/uacore/sights/nodes-filter/{session-GUID}/nodes-status": {
+    "/runtime/uacore/sights/nodes-filter/{sessionId}/nodes-status": {
       "post": {
         "tags": [
           "Uacore_Sights_Node_Filter_Definition"
         ],
-        "description": "Get the \u201cbelongs-to-filter\u201d status for the specified nodes.",
+        "summary": "Get node filter status",
+        "description": "Retrieves whether nodes belong to a filter. Returns bitmask status per node.\n",
         "parameters": [
           {
-            "name": "session-GUID",
+            "name": "sessionId",
             "in": "path",
             "required": true,
             "schema": {
@@ -7452,10 +7509,10 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "nodeId"
+                  "nodeIds"
                 ],
                 "properties": {
-                  "nodeId": {
+                  "nodeIds": {
                     "type": "array",
                     "items": {
                       "type": "string"
@@ -7481,7 +7538,7 @@
                     "checked": {
                       "type": "array",
                       "items": {
-                        "type": "number"
+                        "type": "integer"
                       }
                     }
                   }
@@ -7541,6 +7598,200 @@
           },
           "503": {
             "description": "The system is not in running mode",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/httpua-server/browse": {
+      "post": {
+        "tags": [
+          "HTTP UA Server"
+        ],
+        "summary": "Browse HTTP UA server nodes",
+        "description": "Issues a forward hierarchical browse transaction using the specified session type name.\nReturns, by default, the `NodeId`, `DisplayName`, `NodeClass`, and `BrowseName` of the resulting nodes.\nAdditional information (attributes) of the resulting nodes can be obtained if explicitly requested through `AdditionalAttributes`.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/httpuaserverBrowseRequest"
+              },
+              "example": {
+                "SessionName": "session-type-name",
+                "AdditionalAttributes": [
+                  "Description",
+                  "Value"
+                ],
+                "NodeIds": [
+                  "ns=1;i=123",
+                  "ns=2;s=somestring"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpuaserverBrowseResponse"
+                },
+                "example": [
+                  [
+                    {
+                      "DisplayName": "DisplayName1",
+                      "BrowseName": "BrowseName1",
+                      "NodeClass": "Object",
+                      "NodeId": "ns=1;i=123",
+                      "Description": "Example object"
+                    },
+                    {
+                      "DisplayName": "DisplayName2",
+                      "BrowseName": "BrowseName2",
+                      "NodeClass": "Variable",
+                      "NodeId": "ns=3;s=somestring",
+                      "Value": "123"
+                    }
+                  ],
+                  [
+                    {
+                      "DisplayName": "AnotherNode",
+                      "BrowseName": "AnotherBrowseName",
+                      "NodeClass": "Method",
+                      "NodeId": "ns=2;i=500"
+                    }
+                  ]
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/httpua-server/read": {
+      "post": {
+        "tags": [
+          "HTTP UA Server"
+        ],
+        "summary": "Read HTTP UA server node attributes",
+        "description": "Perform a read operation on the list of nodes using the specified session type name.\nReturns a list of objects for each node with the status code and the values for the specified attributes.\nIf the NodeId does not exist or is not visible in the given session, the returned object element will contain only the NodeId.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/httpuaserverReadRequest"
+              },
+              "example": {
+                "SessionName": "session-type-name",
+                "NodeIds": [
+                  "ns=1;i=123",
+                  "ns=2;s=somestring"
+                ],
+                "AttributesToRead": [
+                  "DisplayName",
+                  "Value"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful read response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/httpuaserverReadResponse"
+                },
+                "example": [
+                  {
+                    "nodeId": "ns=1;i=123",
+                    "DisplayName": {
+                      "StatusCode": "Good",
+                      "Value": "Temperature Sensor"
+                    },
+                    "Value": {
+                      "StatusCode": "Good",
+                      "Value": "23.5"
+                    }
+                  },
+                  {
+                    "nodeId": "ns=2;s=somestring",
+                    "DisplayName": {
+                      "StatusCode": "Good",
+                      "Value": "Pressure Sensor"
+                    },
+                    "Value": {
+                      "StatusCode": "BadNodeIdUnknown",
+                      "Value": ""
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8514,6 +8765,210 @@
             "$ref": "#/components/schemas/coreConfigAutoBackupSettingsModel"
           }
         ]
+      },
+      "httpuaserverBrowseRequest": {
+        "type": "object",
+        "required": [
+          "SessionName",
+          "NodeIds"
+        ],
+        "properties": {
+          "SessionName": {
+            "type": "string",
+            "description": "Name of the HTTP UA server session type."
+          },
+          "NodeIds": {
+            "type": "array",
+            "description": "List of node IDs to browse.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "AdditionalAttributes": {
+            "type": "array",
+            "description": "Optional list of additional node attributes to retrieve. If not specified, the default information for a resulting node is retrieved: `NodeId`, `DisplayName`, `NodeClass`, and `BrowseName`.\nPossible values are: `Description`, `WriteMask`, `UserWriteMask`, `IsAbstract`, `Symmetric`, `InverseName`, `ContainsNoLoops`, `EventNotifier`, `Value`, `DataTypeId`, `BaseDataType`, `ValueRank`, `ArrayDimensions`, `AccessLevel`, `UserAccessLevel`, `MinSamplingInterval`, `Historizing`, `Executable`, `UserExecutable`, `DataTypeDefinition`, `RolePermissions`, `UserRolePermissions`, `AccessRestrictions`, `AccessLevelEx`.\n",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Description",
+                "WriteMask",
+                "UserWriteMask",
+                "IsAbstract",
+                "Symmetric",
+                "InverseName",
+                "ContainsNoLoops",
+                "EventNotifier",
+                "Value",
+                "DataTypeId",
+                "BaseDataType",
+                "ValueRank",
+                "ArrayDimensions",
+                "AccessLevel",
+                "UserAccessLevel",
+                "MinSamplingInterval",
+                "Historizing",
+                "Executable",
+                "UserExecutable",
+                "DataTypeDefinition",
+                "RolePermissions",
+                "UserRolePermissions",
+                "AccessRestrictions",
+                "AccessLevelEx"
+              ]
+            }
+          }
+        }
+      },
+      "httpuaserverBrowseNode": {
+        "type": "object",
+        "required": [
+          "BrowseName",
+          "DisplayName",
+          "NodeClass",
+          "NodeId"
+        ],
+        "properties": {
+          "BrowseName": {
+            "type": "string"
+          },
+          "DisplayName": {
+            "type": "string"
+          },
+          "HasChildren": {
+            "type": "boolean"
+          },
+          "IconType": {
+            "type": "string"
+          },
+          "NodeClass": {
+            "type": "string",
+            "enum": [
+              "Object",
+              "Variable",
+              "Method",
+              "ObjectType",
+              "VariableType",
+              "ReferenceType",
+              "DataType",
+              "View"
+            ]
+          },
+          "NodeId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": {
+          "type": "string"
+        },
+        "description": "Browse result node. If `AdditionalAttributes` were requested, the response object will contain additional members where: - the key is the requested attribute name - the value is a string representation of the attribute value The returned string value must be decoded according to the corresponding OPC UA attribute type.\n"
+      },
+      "httpuaserverBrowseResponse": {
+        "type": "array",
+        "description": "Nested browse response.\nEach top-level array entry corresponds to one requested NodeId. Each nested array contains the browse results for that NodeId.\n",
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/httpuaserverBrowseNode"
+          }
+        }
+      },
+      "httpuaserverReadRequest": {
+        "type": "object",
+        "required": [
+          "SessionName",
+          "NodeIds",
+          "AttributesToRead"
+        ],
+        "properties": {
+          "SessionName": {
+            "type": "string",
+            "description": "Name of the HTTP UA server session type."
+          },
+          "NodeIds": {
+            "type": "array",
+            "description": "List of node IDs to read.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "AttributesToRead": {
+            "type": "array",
+            "description": "List of attributes to read from each node. Supported attributes are: NodeId, NodeClass, BrowseName, DisplayName, Description, WriteMask, UserWriteMask, IsAbstract, Symmetric, InverseName, ContainsNoLoops, EventNotifier, Value, DataTypeId, BaseDataType, ValueRank, ArrayDimensions, AccessLevel, UserAccessLevel, MinSamplingInterval, Historizing, Executable, UserExecutable, DataTypeDefinition, RolePermissions, UserRolePermissions, AccessRestrictions, AccessLevelEx.\n",
+            "items": {
+              "type": "string",
+              "enum": [
+                "NodeId",
+                "NodeClass",
+                "BrowseName",
+                "DisplayName",
+                "Description",
+                "WriteMask",
+                "UserWriteMask",
+                "IsAbstract",
+                "Symmetric",
+                "InverseName",
+                "ContainsNoLoops",
+                "EventNotifier",
+                "Value",
+                "DataTypeId",
+                "BaseDataType",
+                "ValueRank",
+                "ArrayDimensions",
+                "AccessLevel",
+                "UserAccessLevel",
+                "MinSamplingInterval",
+                "Historizing",
+                "Executable",
+                "UserExecutable",
+                "DataTypeDefinition",
+                "RolePermissions",
+                "UserRolePermissions",
+                "AccessRestrictions",
+                "AccessLevelEx"
+              ]
+            }
+          }
+        }
+      },
+      "httpuaserverReadAttribute": {
+        "type": "object",
+        "required": [
+          "StatusCode",
+          "Value"
+        ],
+        "properties": {
+          "StatusCode": {
+            "type": "string",
+            "description": "Status code returned for the attribute read operation."
+          },
+          "Value": {
+            "type": "string",
+            "description": "String representation of the attribute value."
+          }
+        }
+      },
+      "httpuaserverReadNode": {
+        "type": "object",
+        "required": [
+          "nodeId"
+        ],
+        "properties": {
+          "nodeId": {
+            "type": "string",
+            "description": "Node identifier."
+          }
+        },
+        "additionalProperties": {
+          "$ref": "#/components/schemas/httpuaserverReadAttribute"
+        },
+        "description": "Read result object for a node. Each requested attribute appears dynamically as a property name. Each attribute contains: - StatusCode - Value\nIf the node does not exist or is not visible in the session, only the nodeId member is returned.\n"
+      },
+      "httpuaserverReadResponse": {
+        "type": "array",
+        "description": "List of read results for each requested node.",
+        "items": {
+          "$ref": "#/components/schemas/httpuaserverReadNode"
+        }
       }
     },
     "securitySchemes": {
