@@ -99,6 +99,18 @@
     },
     {
       "name": "HTTP UA Server"
+    },
+    {
+      "name": "MappedAddressSpace_Enabled_State"
+    },
+    {
+      "name": "MappedAddressSpace_Address_Spaces"
+    },
+    {
+      "name": "MappedAddressSpace_Companion_Specs"
+    },
+    {
+      "name": "MappedAddressSpace_Edit_Session"
     }
   ],
   "paths": {
@@ -7457,6 +7469,3561 @@
           }
         }
       }
+    },
+    "/runtime/mappedaddressspace/enabled": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Enabled_State"
+        ],
+        "description": "Get the enabled state of the mapped address space module.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "enabled"
+                  ],
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MappedAddressSpace_Enabled_State"
+        ],
+        "description": "Change the enabled state of the mapped address space module.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "enabled"
+                ],
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/address-space": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Address_Spaces"
+        ],
+        "description": "Get the configured mapped address spaces.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/MAS_basic_properties"
+                      },
+                      {
+                        "$ref": "#/components/schemas/StateProperty"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Model_properties"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/address-space/{as-id}": {
+      "parameters": [
+        {
+          "name": "as-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Address_Spaces"
+        ],
+        "description": "Get one mapped address space parameters.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "id"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/MAS_basic_properties"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StateProperty"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Model_properties"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredModels"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MappedAddressSpace_Address_Spaces"
+        ],
+        "description": "Sets the named connection parameters.",
+        "requestBody": {
+          "required": true,
+          "description": "Only the changed attribute has to be passed in the request content.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MAS_basic_properties"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Model_properties"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Address space not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MappedAddressSpace_Address_Spaces"
+        ],
+        "description": "Delete the named mapped address space. The corresponding sight should be deleted first (see **runtime/uacore/sights/conn-filtering/definition**).",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/address-space/{as-id}/nodeset": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Address_Spaces"
+        ],
+        "description": "Download the address space defining node set (XML content).",
+        "parameters": [
+          {
+            "name": "as-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/address-space/{as-id}/issues": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Address_Spaces"
+        ],
+        "description": "Get the errors or warnings comming from initializing the address space.",
+        "parameters": [
+          {
+            "name": "as-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "description": "If the state of the address space is *missing*, the response consists of an array of objects indicating the Uri and Version of each identified missing dependency.",
+                      "properties": {
+                        "uri": {
+                          "type": "string"
+                        },
+                        "version": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "description": "For all the other cases (state is *failed* or *warning*), a list of string is returned.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/companion-specs": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Get the loaded OPC UA companion specifications nodesets.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/MAS_basic_properties"
+                      },
+                      {
+                        "$ref": "#/components/schemas/StateProperty"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Model_properties"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Add a new companion specification. It is expected to subsequently upload a companion specification nodeset file after this creation call.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MAS_basic_properties"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/companion-specs/{as-id}": {
+      "parameters": [
+        {
+          "name": "as-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Retrieves the parameters of the companion specification nodeset.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "id"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/MAS_basic_properties"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StateProperty"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Model_properties"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RequiredModels"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Sets the parameters for the named companion specification.",
+        "requestBody": {
+          "required": true,
+          "description": "Only the changed attribute has to be passed in the request content.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MAS_basic_properties"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Companion specification not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Deletes (unload) the named companion specifications nodeset from the system.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/companion-specs/{as-id}/nodeset": {
+      "parameters": [
+        {
+          "name": "as-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Download the stored nodeset xml file for the companion specification.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Sets (replaces) the node set for the named companion specification.\n\nThe given content must be a valid nodeset2 xml.\n\nFull nodeset xml schema: https://github.com/OPCFoundation/UA-Nodeset/blob/latest/XML/Opc.Ua.Xml.NodeSet2.xml\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Companion specification not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/companion-specs/{as-id}/issues": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Get the errors or warnings coming from enabling the companion specification.",
+        "parameters": [
+          {
+            "name": "as-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "description": "If the state of the companion specification is *missing*, the response consists of an array of objects indicating the Uri and Version of each identified missing dependency.",
+                      "required": [
+                        "uri",
+                        "version"
+                      ],
+                      "properties": {
+                        "uri": {
+                          "type": "string"
+                        },
+                        "version": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "array",
+                      "description": "For all the other cases (state is *failed* or *warning*), a list of string is returned.",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/companion-specs/{as-id}/dependency": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Get the dependencies the specified companion specification is part of.\nIt provides both the companion specification which are required for the specified one together with all the companion specification and/or mapped address spaces for which the specified companion specification is required.\n",
+        "parameters": [
+          {
+            "name": "as-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "requires": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/Model_properties"
+                          }
+                        ]
+                      }
+                    },
+                    "required-by": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/Model_properties"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Companion specification not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/companion-specs-all-depends": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Companion_Specs"
+        ],
+        "description": "Provides the information about all loaded companion specification and their known dependencies (direct or indirect).",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "dependency_map",
+                    "details"
+                  ],
+                  "properties": {
+                    "dependency_map": {
+                      "type": "object",
+                      "description": "It's a map where the companion specification's uri is the key and the value is an array of uris the companion specification depends on.",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "example": {
+                        "http://www.softing.com/Example": [
+                          "http://opcfoundation.org/UA/MDIS",
+                          "http://opcfoundation.org/UA/"
+                        ],
+                        "http://opcfoundation.org/UA/MDIS": [
+                          "http://opcfoundation.org/UA/"
+                        ],
+                        "http://opcfoundation.org/UA/": []
+                      }
+                    },
+                    "details": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "required": [
+                              "name",
+                              "id",
+                              "status"
+                            ],
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string",
+                                "enum": [
+                                  "missing",
+                                  "invalid",
+                                  "ok"
+                                ],
+                                "description": "*status* might have one of the following string values:\n- *missing* - a nodeset corresponding to the *<comp_specs_uri>* is NOT present \n- *invalid* - a nodeset corresponding to the *<comp_specs_uri>* is present BUT is unusable (should be replaced to fix it)\n- *ok* a nodeset corresponding to the *<comp_specs_uri>* is present and usable\n"
+                              }
+                            }
+                          },
+                          {
+                            "$ref": "#/components/schemas/Model_properties"
+                          }
+                        ]
+                      },
+                      "example": {
+                        "http://opcfoundation.org/UA/": {
+                          "uri": "http://opcfoundation.org/UA/",
+                          "name": "OPC UA Standard NodeSet",
+                          "id": "00000000-0000-0000-0000-000000000000",
+                          "status": "ok",
+                          "version": "1.05.02",
+                          "date": "2022-11-01T00:00:00Z"
+                        },
+                        "http://www.softing.com/Example": {
+                          "uri": "http://www.softing.com/Example",
+                          "name": "Comp_spec_example",
+                          "id": "11111111-1111-1111-1111-111111111111",
+                          "status": "ok",
+                          "version": "1.0",
+                          "date": "2026-05-21T00:00:00Z"
+                        },
+                        "http://opcfoundation.org/UA/MDIS": {
+                          "uri": "http://opcfoundation.org/UA/MDIS",
+                          "name": "MDIS_comp_spec",
+                          "id": "22222222-2222-2222-2222-222222222222",
+                          "status": "ok",
+                          "version": "1.3",
+                          "date": "2023-07-07T00:00:00Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session": {
+      "post": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Starts an address space editing session.\n\n**Note:** The session can be started and operated only with the system in running mode.\n\n**Warning!** If the system goes in halted mode while the editing session is open, the behavior is undefined.\n\n**Warning!** A single editing session is supported for now. If a new editing session is started, the old one is deleted without being saved.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "uploadPending",
+                  "addrSpaceId"
+                ],
+                "properties": {
+                  "uploadPending": {
+                    "type": "boolean",
+                    "description": "Set to true if the edit session is to start with uploading a nodeset XML file and then continue from there, \nand false if the editing session is to start from the current content of the address space, or from empty if *addrSpaceId* is empty.\n"
+                  },
+                  "addrSpaceId": {
+                    "type": "string",
+                    "description": "The ID of the address space to be edited, or missing if a new address space is to be created."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "sessionId"
+                  ],
+                  "properties": {
+                    "sessionId": {
+                      "type": "string",
+                      "description": "The ID of the current edit session."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Gets some general information on the editing session.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "uri",
+                    "namespaceIndex"
+                  ],
+                  "properties": {
+                    "uri": {
+                      "type": "string"
+                    },
+                    "namespaceIndex": {
+                      "type": "string",
+                      "description": "The value for *namespaceIndex* is the namespace index for the nodes in the address space that is edited."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Deletes the session without saving.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/nodeset": {
+      "put": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Uploads a file containg an address space definition in nodest Xml2 format. \nThe content is to be used for initializing the address space for the current address space edit session.\n\nFull nodeset xml schema: https://github.com/OPCFoundation/UA-Nodeset/blob/latest/XML/Opc.Ua.Xml.NodeSet2.xml\n",
+        "parameters": [
+          {
+            "name": "session-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/buildAS": {
+      "post": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Triggers the build-up of the address space for the current address space edit sesion.\nIf the flow uses an already exisiting address space, the previously uploaded nodest xml2 file is used.\n\nOnly after this call was perfomed it is possible to access endpoints which are manipulating the address space objects (e.g. creation/editing of instances)\n",
+        "parameters": [
+          {
+            "name": "session-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/details": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Gets detailed information on the editing session.\n",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/MAS_basic_properties"
+                    },
+                    {
+                      "$ref": "#/components/schemas/Model_properties"
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "requiredModelUris"
+                      ],
+                      "properties": {
+                        "requiredModelUris": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "uri",
+                              "version"
+                            ],
+                            "properties": {
+                              "uri": {
+                                "type": "string"
+                              },
+                              "version": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Changes some general information on the mapped address space being edited.",
+        "requestBody": {
+          "required": true,
+          "description": "Only the information which is to be updated shall be included.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MAS_basic_properties"
+                  },
+                  {
+                    "$ref": "#/components/schemas/Model_properties"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "requiredModelUris"
+                    ],
+                    "properties": {
+                      "requiredModelUris": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "Model uri."
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/referencedReqModels": {
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Gets the list of all required models which are being actually used (referenced) in the current edit session.",
+        "parameters": [
+          {
+            "name": "session-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "example": [
+                  "http://opcfoundation.org/UA/MDIS",
+                  "http://opcfoundation.org/UA/"
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/save": {
+      "post": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Saves the editing session, also making the changes visible in the address space. This will deletes the current editing session.",
+        "parameters": [
+          {
+            "name": "session-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "This id should be used on the address space endpoints.",
+                  "required": [
+                    "id"
+                  ],
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/read": {
+      "post": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Perform a read operation on the list nodes that are part current of edit session.\n\nReturns a list of objects for each node with the status code and the values for the specified attributes.\nIf the nodeId does not exists or it is not visible in the edit session, the return object element will be just the nodeId.\n",
+        "parameters": [
+          {
+            "name": "session-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "NodeIds",
+                  "AttributesToRead"
+                ],
+                "properties": {
+                  "NodeIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "AttributesToRead": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "NodeId",
+                        "NodeClass",
+                        "BrowseName",
+                        "DisplayName",
+                        "Description",
+                        "WriteMask",
+                        "UserWriteMask",
+                        "IsAbstract",
+                        "Symmetric",
+                        "InverseName",
+                        "ContainsNoLoops",
+                        "EventNotifier",
+                        "Value",
+                        "DataTypeId",
+                        "BaseDataType",
+                        "ValueRank",
+                        "ArrayDimensions",
+                        "AccessLevel",
+                        "UserAccessLevel",
+                        "MinSamplingInterval",
+                        "Historizing",
+                        "Executable",
+                        "UserExecutable",
+                        "DataTypeDefinition",
+                        "RolePermissions",
+                        "UserRolePermissions",
+                        "AccessRestrictions",
+                        "AccessLevelEx"
+                      ]
+                    }
+                  }
+                }
+              },
+              "example": {
+                "NodeIds": [
+                  "ns=1;i=123",
+                  "ns=2;s=somestring"
+                ],
+                "AttributesToRead": [
+                  "IsAbstract",
+                  "ValueRank"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "nodeId"
+                    ],
+                    "properties": {
+                      "nodeId": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": {
+                      "type": "object",
+                      "required": [
+                        "StatusCode",
+                        "Value"
+                      ],
+                      "properties": {
+                        "StatusCode": {
+                          "type": "string"
+                        },
+                        "Value": {
+                          "$ref": "#/components/schemas/ValueAttribute"
+                        }
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "nodeId": "ns=1;i=123",
+                      "IsAbstract": {
+                        "StatusCode": "0",
+                        "Value": "true"
+                      },
+                      "ValueRank": {
+                        "StatusCode": "0",
+                        "Value": "0"
+                      }
+                    },
+                    {
+                      "nodeId": "ns=2;s=somestring",
+                      "IsAbstract": {
+                        "StatusCode": "0",
+                        "Value": "false"
+                      },
+                      "ValueRank": {
+                        "StatusCode": "0",
+                        "Value": "0"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/create-instance": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Creates a new node, together with all Mandatory (but not MandatoryPlaceholder) sub-nodes required by its type definition.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "instanceName",
+                  "parentNodeId",
+                  "parentReference"
+                ],
+                "properties": {
+                  "instanceName": {
+                    "type": "string"
+                  },
+                  "parentNodeId": {
+                    "type": "string"
+                  },
+                  "parentReference": {
+                    "type": "string",
+                    "description": "The node id representing the reference to the parent."
+                  },
+                  "typeDefinition": {
+                    "type": "string",
+                    "description": "The node id of the type definition node. Can be missing only for method nodes."
+                  },
+                  "nodeClass": {
+                    "type": "string",
+                    "description": "If missing it will take the node class of the found root type definition node.",
+                    "enum": [
+                      "Object",
+                      "Variable",
+                      "Method"
+                    ]
+                  },
+                  "browseName": {
+                    "type": "string",
+                    "description": "If missing the default value will be *instanceName* name and current namespace index of the edit session.\n"
+                  },
+                  "displayName": {
+                    "description": "If missing the default value will be *instanceName* text and \"\" locale.\n",
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/LocalizedText"
+                      }
+                    ]
+                  },
+                  "description": {
+                    "description": "If missing it will take the description of the found root type definition node.",
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/LocalizedText"
+                      }
+                    ]
+                  },
+                  "dataType": {
+                    "type": "string",
+                    "description": "This is for *variable* nodes. If missing it will take the data type of the found root type definition node."
+                  },
+                  "valueRank": {
+                    "type": "integer",
+                    "description": "This is for *variable* nodes. If missing it will take the value rank of the found root type definition node."
+                  },
+                  "value": {
+                    "description": "This is for *variable* nodes. If missing it will take the value of the found root type definition node.",
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/ValueAttribute"
+                      }
+                    ]
+                  },
+                  "accessLevel": {
+                    "type": "integer",
+                    "description": "This is for *variable* nodes. \nIf missing it will take the access value of the found root type definition node and if that is missing it will be 3 (read & write).\n"
+                  },
+                  "minimumSamplingInterval": {
+                    "type": "number",
+                    "description": "This is for *variable* nodes. \nIf missing it will take the minimum samplimg interval of the found root type definition node and if that is missing it will be -1.0.\n"
+                  },
+                  "executable": {
+                    "type": "boolean",
+                    "description": "This is for *method* nodes. If missing it will take the data type of the found root type definition node."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "The node ID of the new node.",
+                  "required": [
+                    "nodeId"
+                  ],
+                  "properties": {
+                    "nodeId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/nodes/{node-id}": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "node-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the data (UA attributes, UA references, plus some other useful information) on the specified node.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "attributes",
+                    "hasChildren",
+                    "forwardedTo"
+                  ],
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "attributes": {
+                          "description": "The attributes that are not defined for the node class will be missing entirely; same for *typeDefinition*.\n",
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/NodeBasicAttriibutes"
+                            },
+                            {
+                              "type": "object",
+                              "required": [
+                                "description"
+                              ],
+                              "properties": {
+                                "description": {
+                                  "$ref": "#/components/schemas/LocalizedText"
+                                },
+                                "eventNotifier": {
+                                  "description": "For object node class.",
+                                  "type": "integer"
+                                },
+                                "writeMask": {
+                                  "type": "integer"
+                                },
+                                "historizing": {
+                                  "type": "boolean"
+                                },
+                                "isAbstract": {
+                                  "description": "For data type, object type and reference type node class.",
+                                  "type": "boolean"
+                                },
+                                "dataTypeDescription": {
+                                  "description": "For data type node class.",
+                                  "allOf": [
+                                    {
+                                      "$ref": "#/components/schemas/DataTypeDescription"
+                                    }
+                                  ]
+                                },
+                                "executable": {
+                                  "description": "For method node class.",
+                                  "type": "boolean"
+                                },
+                                "symmetric": {
+                                  "description": "For reference type node class.",
+                                  "type": "boolean"
+                                },
+                                "inverseName": {
+                                  "description": "For reference type node class.",
+                                  "allOf": [
+                                    {
+                                      "$ref": "#/components/schemas/LocalizedText"
+                                    }
+                                  ]
+                                },
+                                "arrayDimensions": {
+                                  "description": "For variable node class.",
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "$ref": "#/components/schemas/VariableAttributes"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/NodeOptionalAtributes"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "attributesFromTypeDefinitionJsonName": {
+                          "description": "Will be missing for nodes outside the address space under edit, and the attributes below are present only for nodes of class *Variable*.\n",
+                          "type": "object",
+                          "properties": {
+                            "dataType": {
+                              "type": "string"
+                            },
+                            "valueRank": {
+                              "type": "integer"
+                            },
+                            "arrayDimensions": {
+                              "description": "will be null if *valueRank* does not indicate a precise number of dimensions (i.e., if *valueRank* is not 0 or a strictly positive value).",
+                              "type": "array",
+                              "items": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "modellingRule": {
+                          "type": "string",
+                          "enum": [
+                            "Mandatory",
+                            "Optional",
+                            "MandatoryPlaceholder",
+                            "OptionalPlaceholder"
+                          ]
+                        },
+                        "hasChildren": {
+                          "type": "boolean"
+                        },
+                        "forwardedTo": {
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/ForwardedElement"
+                            },
+                            {
+                              "$ref": "#/components/schemas/Incompatibilities"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Updates UA attributes and other few associated information for the specified node.\n\nNotes:\n  - node ID and node class cannot be updated\n  - browse name can be updated only for a stand-alone instance, not for one that is a component in a larger one\n  - attributes not specified in the request will keep their current values  \n  - when setting the forwarding target node ID (for the node itself and, in case of Methods, for the parent object), one and only one of the *namespaceIndex* or *namespaceUri* shall be present.\n  - clearing the forwarding information should be made by sending as a value for *forwardedTo* / *nodeForwardedTo* the representation of nodeId_NULL:\n    ```json\n    // one and only one of the *namespaceIndex* or *namespaceUri` should be present\n    {\n        \"namespaceIndex\": 0,\n        // \"namespaceUri\": \"http://opcfoundation.org/UA/\",\n        \"identifierType\": \"i\",\n        \"identifier\": \"0\"\n    }\n    ```\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attributes": {
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "browseName": {
+                            "type": "string"
+                          },
+                          "displayName": {
+                            "$ref": "#/components/schemas/LocalizedText"
+                          },
+                          "description": {
+                            "$ref": "#/components/schemas/LocalizedText"
+                          },
+                          "executable": {
+                            "type": "boolean"
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/VariableAttributes"
+                      }
+                    ]
+                  },
+                  "forwardedTo": {
+                    "$ref": "#/components/schemas/ForwardedElement"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "forwardedTo": {
+                      "$ref": "#/components/schemas/Incompatibilities"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Deletes the UA node. Mandatory components of another node cannot be deleted.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/nodes/{node-id}/children": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "node-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns basic data on nodes related to current node through forward hierarchical references.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/NodeBasicAttriibutes"
+                      },
+                      {
+                        "$ref": "#/components/schemas/NodeOptionalAtributes"
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "hasChildren",
+                          "forwardedTo"
+                        ],
+                        "properties": {
+                          "hasChildren": {
+                            "type": "boolean"
+                          },
+                          "forwardedTo": {
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/ForwardAttributes"
+                              },
+                              {
+                                "$ref": "#/components/schemas/Incompatibilities"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/nodes/{node-id}/components": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "node-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the children of the specified node, that are defined by the type definition.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "The attributes that are not defined for the node class will be missing entirely; same for *typeDefinition*.",
+                  "required": [
+                    "simpleComponents"
+                  ],
+                  "properties": {
+                    "simpleComponents": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/NodeBasicAttriibutes"
+                          },
+                          {
+                            "$ref": "#/components/schemas/NodeOptionalAtributes"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "refenceTypes": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "dataType": {
+                                "type": "string"
+                              },
+                              "modellingRule": {
+                                "type": "string",
+                                "enum": [
+                                  "Mandatory",
+                                  "Optional",
+                                  "MandatoryPlaceholder",
+                                  "OptionalPlaceholder"
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "placeholders": {
+                      "description": "Currently the placeholders are unused and to be further expanded in the future.",
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Creates a sub-component defined in the type definition for the node specified in the path.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "browseNameInType": {
+                    "description": "This is the browse name of the simple component or of the placeholder, as it appears in the instance declarations tree.",
+                    "type": "string"
+                  },
+                  "instanceName": {
+                    "description": "This must not be present when creating a simple component, but is mandatory when creating a placeholder.",
+                    "type": "string"
+                  },
+                  "browseName": {
+                    "description": "This overrides the browse name derived from *instanceName* when creating a placeholder; must not be present when creating a simple (optional) component.",
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "description": "This overrides the display name derived from *instanceName* or the one from the type definition.",
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/LocalizedText"
+                      }
+                    ]
+                  },
+                  "typeDefinition": {
+                    "description": "Node ID represented as strings.",
+                    "type": "string"
+                  },
+                  "dataType": {
+                    "description": "Node ID represented as strings.",
+                    "type": "string"
+                  },
+                  "valueRank": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "The node ID of the new node.",
+                  "required": [
+                    "nodeId"
+                  ],
+                  "properties": {
+                    "nodeId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/reference-types": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the reference types available for the currently selected required models.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TypeResponse"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "attributes"
+                        ],
+                        "properties": {
+                          "attributes": {
+                            "type": "object",
+                            "properties": {
+                              "symmetric": {
+                                "description": "For reference type node class.",
+                                "type": "boolean"
+                              },
+                              "inverseName": {
+                                "description": "For reference type node class.",
+                                "allOf": [
+                                  {
+                                    "$ref": "#/components/schemas/LocalizedText"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/component-reference-types": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the reference types, usable to link instances to their parents (that is, hierarchical references except HasSubtype), and available for the currently selected required models.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TypeResponse"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "attributes"
+                        ],
+                        "properties": {
+                          "attributes": {
+                            "type": "object",
+                            "properties": {
+                              "symmetric": {
+                                "description": "For reference type node class.",
+                                "type": "boolean"
+                              },
+                              "inverseName": {
+                                "description": "For reference type node class.",
+                                "allOf": [
+                                  {
+                                    "$ref": "#/components/schemas/LocalizedText"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/data-types": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the data types available for the currently selected required models.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TypeResponse"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "attributes"
+                        ],
+                        "properties": {
+                          "attributes": {
+                            "type": "object",
+                            "properties": {
+                              "dataTypeDescription": {
+                                "description": "For data type node class.",
+                                "allOf": [
+                                  {
+                                    "$ref": "#/components/schemas/DataTypeDescription"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/object-types": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the object types available for the currently selected required models.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TypeResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/variable-types": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the variable types available for the currently selected required models.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/TypeResponse"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "attributes"
+                        ],
+                        "properties": {
+                          "attributes": {
+                            "type": "object",
+                            "properties": {
+                              "dataType": {
+                                "type": "string"
+                              },
+                              "valueRank": {
+                                "type": "integer"
+                              },
+                              "arrayDimensions": {
+                                "type": "array",
+                                "items": {
+                                  "type": "integer"
+                                }
+                              },
+                              "value": {
+                                "$ref": "#/components/schemas/FullValueAttribute"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mappedaddressspace/edit-session/{session-id}/types/{node-id}/instance-declarations": {
+      "parameters": [
+        {
+          "name": "session-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "node-id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "MappedAddressSpace_Edit_Session"
+        ],
+        "description": "Returns the fully inherited instance declaration hierarchy for the object type or variable type specified by the node ID.\n\nSee [UA specs part 3 section 6.2](https://reference.opcfoundation.org/Core/Part3/v105/docs/6.2) [UA specs part 3 section 6.3.3](https://reference.opcfoundation.org/Core/Part3/v105/docs/6.3.3).\n\nIn particular, note that, as per [6.2.6](https://reference.opcfoundation.org/Core/Part3/v105/docs/6.2.6), `any InstanceDeclaration within the InstanceDeclarationHierarchy can be uniquely identified by a sequence of BrowseNames`.\n\nThis call returns all instance declaration nodes referenced directly or indirectly through forward HierarchicalReferences from the type node and its ancestors, except those from ancestor types that are overriden by some descendent type.\n",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "browsePaths",
+                          "attributes",
+                          "modellingRule",
+                          "references"
+                        ],
+                        "properties": {
+                          "browsePaths": {
+                            "description": "Contains all the distinct sequences of browseNames that lead from the type definition node to the current node via hierarchical references.",
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "attributes": {
+                            "allOf": [
+                              {
+                                "$ref": "#/components/schemas/NodeBasicAttriibutes"
+                              },
+                              {
+                                "type": "object",
+                                "required": [
+                                  "description"
+                                ],
+                                "properties": {
+                                  "description": {
+                                    "$ref": "#/components/schemas/LocalizedText"
+                                  },
+                                  "eventNotifier": {
+                                    "description": "For object node class.",
+                                    "type": "integer"
+                                  },
+                                  "writeMask": {
+                                    "type": "integer"
+                                  },
+                                  "historizing": {
+                                    "type": "boolean"
+                                  },
+                                  "isAbstract": {
+                                    "description": "For data type, object type and reference type node class.",
+                                    "type": "boolean"
+                                  },
+                                  "dataTypeDescription": {
+                                    "description": "For data type node class",
+                                    "allOf": [
+                                      {
+                                        "$ref": "#/components/schemas/DataTypeDescription"
+                                      }
+                                    ]
+                                  },
+                                  "executable": {
+                                    "description": "For method node class.",
+                                    "type": "boolean"
+                                  },
+                                  "symmetric": {
+                                    "description": "For reference type node class.",
+                                    "type": "boolean"
+                                  },
+                                  "inverseName": {
+                                    "description": "For reference type node class.",
+                                    "allOf": [
+                                      {
+                                        "$ref": "#/components/schemas/LocalizedText"
+                                      }
+                                    ]
+                                  },
+                                  "arrayDimensions": {
+                                    "description": "For variable node class.",
+                                    "type": "array",
+                                    "items": {
+                                      "type": "integer"
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "$ref": "#/components/schemas/VariableAttributes"
+                              }
+                            ]
+                          },
+                          "modellingRule": {
+                            "type": "string",
+                            "enum": [
+                              "Mandatory",
+                              "Optional",
+                              "MandatoryPlaceholder",
+                              "OptionalPlaceholder"
+                            ]
+                          },
+                          "references": {
+                            "type": "array",
+                            "description": "Contains all the references linking the current instance declaration with other instance declarations returned in the same list. Note that this list of references will **not** contain *HasSubtype*, *HasTypeDefinition*, or *HasModellingRule*.\n",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "target",
+                                "referenceType",
+                                "isInverse"
+                              ],
+                              "properties": {
+                                "target": {
+                                  "type": "string"
+                                },
+                                "referenceType": {
+                                  "type": "string"
+                                },
+                                "isInverse": {
+                                  "type": "boolean"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/NodeOptionalAtributes"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Edit session not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -8613,6 +12180,423 @@
         "description": "List of read results for each requested node.",
         "items": {
           "$ref": "#/components/schemas/httpuaserverReadNode"
+        }
+      },
+      "MAS_basic_properties": {
+        "type": "object",
+        "required": [
+          "name",
+          "enabled"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Model_properties": {
+        "type": "object",
+        "required": [
+          "uri",
+          "version",
+          "date"
+        ],
+        "properties": {
+          "uri": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        }
+      },
+      "RequiredModels": {
+        "type": "object",
+        "required": [
+          "requiredModels"
+        ],
+        "properties": {
+          "requiredModels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Model_properties"
+            }
+          }
+        }
+      },
+      "StateProperty": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "description": "Possible values for *state*:\n- *off* - the mapped address space is disabled or the module is disabled;\n- *failed* - the mapped address space failed to come up (so, it is unavailable, athough it is enabled);\n- *good* - the mapped address space is up and with no issues;\n- *warning* - the mapped address space is up, but there were warnings;\n- *loading* - address space loading is in progress.\n- *missing* - address space cannot be loaded because one or more missing dependencies\n",
+            "enum": [
+              "off",
+              "failed",
+              "good",
+              "warning",
+              "loading",
+              "missing"
+            ]
+          }
+        }
+      },
+      "ValueAttribute": {
+        "description": "Can be one of the following:\n- null value is represented as JSON null\n- booleans, integers, floating point numbers, and strings are represented as their corresponding JSON equivalents\n- DateTime is represented as ISO8601 string, e.g. *\"2024-06-21T11:49:23.456Z\"*\n- ByteString is represented as a list of integers\n- NodeId and QualifiedName are represented as strings, e.g. *\"ns=7;s=SomeNode\"* or *\"42:TheAnswer\"*\n- LocalizedText is represented as a JSON list of JSON objects with *locale* and *text* fields\n- for types derived from simple built-in types, the value is represented as the built-in type; for example, the value shall never be Duration (i=290) but rather Double (i=11)\n- for types derived from Structure:\n  - the value will be a JSON Object with field names as defined in the structure and with the values being the values of the fields\n  - for missing UA fields, the corresponding JSON fields will be null or missing\n  - if a field value can use sub-types, then the value shall be a JSON object of the form *{\"dataType\" : \"string-node-id\", \"value\" : json-value}*; otherwise, the value of the field is directly the representation\n- for types derived from Enumeration, the value is directly the integer representation of that value\n- for one or two-dimensional arrays, it shall be a JSON list of JSON values as above, or a JSON list of JSON lists of objects as above\n",
+        "oneOf": [
+          {
+            "type": "object"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValueAttribute"
+            }
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "FullValueAttribute": {
+        "type": "object",
+        "required": [
+          "dataType",
+          "valueRank",
+          "value"
+        ],
+        "properties": {
+          "dataType": {
+            "type": "string"
+          },
+          "valueRank": {
+            "type": "integer"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ValueAttribute"
+          }
+        }
+      },
+      "VariableAttributes": {
+        "type": "object",
+        "description": "For variable and variable type node class.",
+        "properties": {
+          "dataType": {
+            "type": "string"
+          },
+          "valueRank": {
+            "type": "integer"
+          },
+          "value": {
+            "$ref": "#/components/schemas/FullValueAttribute"
+          },
+          "accessLevel": {
+            "type": "integer"
+          },
+          "minimumSamplingInterval": {
+            "type": "number"
+          }
+        }
+      },
+      "ForwardAttributes": {
+        "type": "object",
+        "required": [
+          "namespaceIndex",
+          "namespaceUri",
+          "identifierType",
+          "identifier"
+        ],
+        "properties": {
+          "namespaceIndex": {
+            "type": "integer"
+          },
+          "namespaceUri": {
+            "type": "string"
+          },
+          "identifierType": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      },
+      "LocalizedText": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "text",
+            "locale"
+          ],
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "NodeBasicAttriibutes": {
+        "type": "object",
+        "required": [
+          "nodeId",
+          "nodeClass",
+          "browseName",
+          "displayName"
+        ],
+        "properties": {
+          "nodeId": {
+            "type": "string"
+          },
+          "nodeClass": {
+            "type": "string",
+            "enum": [
+              "Object",
+              "Variable",
+              "Method",
+              "ObjectType",
+              "VariableType",
+              "ReferenceType",
+              "DataType"
+            ]
+          },
+          "browseName": {
+            "type": "string"
+          },
+          "displayName": {
+            "$ref": "#/components/schemas/LocalizedText"
+          }
+        }
+      },
+      "ForwardedElement": {
+        "type": "object",
+        "description": "Contains the forwarding information associated to the node. It is present for Variable and for Method nodes.\n",
+        "required": [
+          "nodeForwardedTo",
+          "parentForwardedTo",
+          "incompatibilities"
+        ],
+        "properties": {
+          "nodeForwardedTo": {
+            "description": "Is present for both Variables and Methods.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ForwardAttributes"
+              }
+            ]
+          },
+          "parentNodeLocal": {
+            "description": "Only for Methods.",
+            "type": "string"
+          },
+          "parentForwardedTo": {
+            "description": "Only for Methods.",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ForwardAttributes"
+              }
+            ]
+          }
+        }
+      },
+      "FieldStructure": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "dataType": {
+                "type": "string"
+              },
+              "valueRank": {
+                "type": "integer"
+              },
+              "description": {
+                "$ref": "#/components/schemas/LocalizedText"
+              },
+              "arrayDimensions": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "isOptional": {
+                "type": "boolean"
+              },
+              "maxStringLength": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "DataTypeDescription": {
+        "oneOf": [
+          {
+            "type": "object",
+            "description": "For structure types.",
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/FieldStructure"
+                }
+              },
+              "defaultEncoding": {
+                "type": "string"
+              },
+              "structureType": {
+                "description": "Internally the structure has the following enum values:\n  - None (0)\n  - Structure\n  - Enumeration\n  - Simple\n",
+                "type": "integer"
+              },
+              "dataType": {
+                "type": "string"
+              },
+              "parent": {
+                "$ref": "#/components/schemas/DataTypeDescription"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "For enumeration types.",
+            "properties": {
+              "fields": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              },
+              "structureType": {
+                "type": "integer"
+              },
+              "dataType": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Incompatibilities": {
+        "type": "object",
+        "properties": {
+          "incompatibilities": {
+            "description": "Returns any incompatibilities that there are between the node and the node it is mapped to.\nAlowed compatibilities:\n- One is an enumeration and the other is Int32\n- Both are enumerations and one is a sub type of the other\n- The node is read-only and the other one is a sub-type of it\n- One is a scalar of ByteString and the other one is an array of Byte\n",
+            "type": "object",
+            "required": [
+              "nodeId",
+              "dataType",
+              "nodeClass",
+              "valueRank"
+            ],
+            "properties": {
+              "nodeId": {
+                "description": "True if the node that is mapped to does not exists or is not accesible at the moment.",
+                "type": "boolean"
+              },
+              "dataType": {
+                "type": "boolean"
+              },
+              "nodeClass": {
+                "description": "True if the nodes have different node classes.",
+                "type": "boolean"
+              },
+              "valueRank": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "NodeOptionalAtributes": {
+        "type": "object",
+        "properties": {
+          "typeDefinition": {
+            "description": "Is the node ID of the type definition target and is present only for nodes of class Object or Variable.",
+            "type": "string"
+          },
+          "iconType": {
+            "type": "string",
+            "enum": [
+              "Object",
+              "Folder",
+              "Variable",
+              "Property",
+              "Method",
+              "ObjectType",
+              "VariableType",
+              "DataType",
+              "ReferenceType"
+            ]
+          }
+        }
+      },
+      "TypeResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "attributes",
+            "parent",
+            "children"
+          ],
+          "properties": {
+            "attributes": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/NodeBasicAttriibutes"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "description": {
+                      "$ref": "#/components/schemas/LocalizedText"
+                    },
+                    "isAbstract": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              ]
+            },
+            "parent": {
+              "description": "Node ID represented as strings.",
+              "type": "string"
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "description": "Node ID represented as strings.",
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },
