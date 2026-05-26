@@ -46,6 +46,18 @@ tags:
 - name: Uacore_Sights_Node_Filter_Definition
 - name: Uacore_Subscriptions_And_Monitored_Items_Options
 - name: HTTP UA Server
+- name: Enabled_State
+- name: Connections
+- name: Testing_Connection
+- name: Temporary_PKI_Management
+- name: Opcuaserver_Discovery_Server
+- name: Opcuaserver_Enabled_State
+- name: Opcuaserver_Authentication_Attempts_Management
+- name: Opcuaserver_Ip_Filtering_Management
+- name: Opcuaserver_Users_Management
+- name: Opcuaserver_Endpoints_Management
+- name: Opcuaserver_Unsuccessful_Auth_Attempts
+- name: Opcuaserver_Temporary_PKI_Management
 - name: MappedAddressSpace_Enabled_State
 - name: MappedAddressSpace_Address_Spaces
 - name: MappedAddressSpace_Companion_Specs
@@ -62,6 +74,8 @@ tags:
 - name: Siemens_Sinumerik_840D
 - name: Fanuc
 - name: Allen_Bradley
+- name: Siemens_S7_32
+- name: Siemens_S7_72
 paths:
   /runtime/core/auth/by-password:
     post:
@@ -4998,6 +5012,3378 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates:
+    post:
+      tags:
+      - Temporary_PKI_Management
+      description: Creates a temporary PKI for manipulating certificates.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endpointName:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pkiSessionId:
+                    type: string
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}:
+    delete:
+      tags:
+      - Temporary_PKI_Management
+      description: Removes temporary PKI.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/default-settings/{session-GUID}/own-certificate:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get the default parameters for the Client App certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  country:
+                    type: string
+                  state-or-province:
+                    type: string
+                  organization:
+                    type: string
+                  organization-unit:
+                    type: string
+                  common-name:
+                    type: string
+                  email:
+                    type: string
+                  locality:
+                    type: string
+                  valid-days:
+                    type: integer
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get the server own application certificate summary.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  validTo:
+                    type: string
+                  thumbprint:
+                    type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Temporary_PKI_Management
+      description: Import the server own application certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/*:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own/details/{thumbprint}:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get own certificate details.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientCertificateDetails'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own/cert:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get the server own application certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own/password:
+    post:
+      tags:
+      - Temporary_PKI_Management
+      description: Set the own certificate password.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own/generate-parametrized:
+    post:
+      tags:
+      - Temporary_PKI_Management
+      description: Set a new servers own certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                state-or-province:
+                  type: string
+                organization:
+                  type: string
+                organization-unit:
+                  type: string
+                common-name:
+                  type: string
+                email:
+                  type: string
+                locality:
+                  type: string
+                valid-days:
+                  type: integer
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own/generate:
+    post:
+      tags:
+      - Temporary_PKI_Management
+      description: Generates a new connection own certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own/reusable-certs:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Retrieve a list with the available certificates from the other
+        endpoints.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    endpointName:
+                      type: string
+                    name:
+                      type: string
+                    validTo:
+                      type: string
+                    thumbprint:
+                      type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/own/copy-from-endpoint:
+    post:
+      tags:
+      - Temporary_PKI_Management
+      description: Copies the own certificate from an existing endpoint as the own
+        certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sourceEndpointName:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/trusted:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get the list of trusted application certificates summaries.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                    validTo:
+                      type: string
+                    thumbprint:
+                      type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Temporary_PKI_Management
+      description: Import a trusted app certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/*:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/trusted/{thumbprint}:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get the given trusted certificate details.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientCertificateDetails'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Temporary_PKI_Management
+      description: Delete the certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/rejected:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get the given trusted certificate details.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                    validTo:
+                      type: string
+                    thumbprint:
+                      type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/rejected/{thumbprint}:
+    get:
+      tags:
+      - Temporary_PKI_Management
+      description: Get the given trusted certificate details.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientCertificateDetails'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Temporary_PKI_Management
+      description: Delete the certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/edit-certificates/{session-GUID}/rejected/{thumbprint}/move-to-trusted:
+    post:
+      tags:
+      - Temporary_PKI_Management
+      description: Moves a certificate from rejected to trusted.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/enabled:
+    get:
+      tags:
+      - Enabled_State
+      description: Get the enabled state of the server.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientEnabledState'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Enabled_State
+      description: Change the enabled state of the server.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaclientEnabledState'
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/test-connection:
+    post:
+      tags:
+      - Testing_Connection
+      description: Initiate the test on the connection availability for a list of
+        provided OPC-UA endpoints.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaclientPostTestConnection'
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/test-connection/{connection-name}:
+    get:
+      tags:
+      - Testing_Connection
+      description: Retrieve the connection availability for a specific connection
+        identified by it's name.
+      parameters:
+      - name: connection-name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientTestSpecificConnection'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/connections:
+    get:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientConnections'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaclientConnection'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/connections/{connection-name}:
+    get:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      parameters:
+      - name: connection-name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientConnection'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      parameters:
+      - name: connection-name
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaclientConnection'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      parameters:
+      - name: connection-name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/connections/{connection-name}/performance-settings:
+    get:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      parameters:
+      - name: connection-name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientPerformanceSettings'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/default-settings/performance-profiles:
+    get:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientPerformanceProfiles'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-client/default-settings/connection-advanced-settings:
+    get:
+      tags:
+      - Connections
+      description: Get the configured connections.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaclientConnectionAdvancedSettings'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates:
+    post:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Creates a temporary PKI for manipulating certificates. If an endpointName
+        is given in the request, the temporary PKI is created for editing the PKI
+        of the corresponding endpoint. The temporary PKI is created as a copy of the
+        current PKI of that endpoint. Any other edit operation for that endpoint is
+        aborted and the corresponding GUID is invalidated. If endpointName is null,
+        an empty PKI is created, for a new endpoint that is expected to be created.
+        The response contains a unique ID to be used in subsequent requests. All changes
+        done on that temporary PKI are persisted ONLY when calling PUT or POST on
+        runtime/opcua-server/endpoints/<endpoint> and give the pkiSessionId in the
+        json.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - endpointName
+              properties:
+                endpointName:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: Temporary PKI created
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - pkiSessionId
+                properties:
+                  pkiSessionId:
+                    type: string
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '401':
+          description: Unauthorized to access Uri
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: The given (non-null) endpointName is not an existing endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '405':
+          description: Method is not allowed (only POST is allowed for this Uri)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Indicates another error (unspecific internal error)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}:
+    delete:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Removes the temporary PKI without changing the corresponding endpoint.The
+        session GUID is invalidated.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/default-settings/{session-GUID}/own-certificate:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get the default parameters for the Client App certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - country
+                - state-or-province
+                - organization
+                - organization-unit
+                - common-name
+                - email
+                - locality
+                - valid-days
+                properties:
+                  country:
+                    type: string
+                  state-or-province:
+                    type: string
+                  organization:
+                    type: string
+                  organization-unit:
+                    type: string
+                  common-name:
+                    type: string
+                  email:
+                    type: string
+                  locality:
+                    type: string
+                  valid-days:
+                    type: integer
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/own:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get the server own application certificate summary.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - name
+                - validTo
+                - thumbprint
+                properties:
+                  name:
+                    type: string
+                  validTo:
+                    type: string
+                  thumbprint:
+                    type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: "Import the server own application certificate (.pfx - mime-type\
+        \ application/x-pkcs12). The certificate is provided as one .pfx file, which\
+        \ embeds a certificate and its corresponding private key. The private key\
+        \ in the uploaded pfx file is expected to be password-protected with the current\
+        \ password. If you need to upload a pfx file protected with a different password,\
+        \ then you should first change the password (POST on /runtime/opcua-server/edit-certificates/<session-GUID>/own/password)\
+        \ and then upload the pfx. The initial password for a newly-created PKI is\
+        \ \u2018pass`. On success, the old certificate (.der and .pem) are deleted\
+        \ and the password is persisted."
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/*:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/own/details/{thumbprint}:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get own certificate details. Notes - Each "name" part in "subjectDN"
+        and "issuerDN" may be "C" = country, "S" = state/county, "L" = locality (city),
+        "O" = organization, "OU" = organization unit (department), etc. Each "name"
+        part in "subjectAlternateName" may be "URL", "DNS", etc. Some information
+        is duplicate, because of historical reasons (e.g, "name" is the same as "CN"
+        under "subjectDN")
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverCertificateDetails'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/own/cert:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get the server own application certificate (the actual content,
+        in DER format application/x-x509-ca-cert). If no own certificate is defined
+        yet, then a HTTP result code of 404 is returned.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/own/password:
+    post:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Set the own certificate password. Note that once set, the password
+        is used for unpacking the .pfx file uploaded with the PUT command on runtime/uacore/certificates/application/own.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/own/generate-parametrized:
+    post:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Set a new servers own certificate. The old own certificate is deleted
+        on success.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                  description: Country must be either empty or a 2-characters ISO
+                    country code
+                state-or-province:
+                  type: string
+                  description: State-or-provence and locality must be UTF-8 strings
+                    of at most 128 characters (code points are numbered)
+                organization:
+                  type: string
+                  description: Organization, organization-unit, and common-name are
+                    UTF-8 strings of at most 64 characters
+                organization-unit:
+                  type: string
+                common-name:
+                  type: string
+                email:
+                  type: string
+                  description: Email must be a valid e-mail of at most 128 characters
+                    (no non-ASCII characters are allowed)
+                locality:
+                  type: string
+                valid-days:
+                  type: integer
+                  description: Valid-days must be between 0 and 24855 (2^31-1 seconds,
+                    or approximately 86 years)
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/own/reusable-certs:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Retrieve a list with the available certificates from the other
+        endpoints.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - endpointName
+                  - name
+                  - validTo
+                  - thumbprint
+                  properties:
+                    endpointName:
+                      type: string
+                    name:
+                      type: string
+                    validTo:
+                      type: string
+                    thumbprint:
+                      type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/own/copy-from-endpoint:
+    post:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Copies the own certificate from an existing endpoint as the own
+        certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - sourceEndpointName
+              properties:
+                sourceEndpointName:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/trusted:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get the list of trusted application certificates summaries.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - name
+                  - validTo
+                  - thumbprint
+                  properties:
+                    name:
+                      type: string
+                    validTo:
+                      type: string
+                    thumbprint:
+                      type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Import a trusted app certificate (.der - mime-type application/x-x509-ca-cert).
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/*:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/trusted/{thumbprint}:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get the given trusted certificate details. Result json format is
+        identical with that in /runtime/opcua-server/edit-certificates/<session-GUID>/own/details
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverCertificateDetails'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Delete the certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/rejected:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get the rejected application certificates summaries. The response
+        json is identical with that in GET /runtime/opcua-server/edit-certificates/<session-GUID>/trusted
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                    validTo:
+                      type: string
+                    thumbprint:
+                      type: string
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/rejected/{thumbprint}:
+    get:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Get the given trusted certificate details. Result json format is
+        identical with that in /runtime/opcua-server/edit-certificates/<session-GUID>/own/details
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverCertificateDetails'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Delete the certificate.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/edit-certificates/{session-GUID}/rejected/{thumbprint}/move-to-trusted:
+    post:
+      tags:
+      - Opcuaserver_Temporary_PKI_Management
+      description: Moves a certificate identified by the <thumbprint> from the rejected
+        folder to the trusted folder.
+      parameters:
+      - name: session-GUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: thumbprint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/enabled:
+    get:
+      tags:
+      - Opcuaserver_Enabled_State
+      summary: Get the enabled state of the OPC UA server
+      description: Get the enabled state of the server.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverEnabledState'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Opcuaserver_Enabled_State
+      summary: Change the enabled state of the OPC UA server
+      description: Change the enabled state of the server.The state change is applied
+        immediately.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverEnabledState'
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}/ip-filtering:
+    get:
+      tags:
+      - Opcuaserver_Ip_Filtering_Management
+      summary: Get the IP Filtering settings for the specified endpoint
+      description: Gets the specific settings for the Ip Filtering feature for the
+        specified endpoint, including the list of the configured Ip ranges (if configured)
+        subject to filtering.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverIpFilteringManag'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Opcuaserver_Ip_Filtering_Management
+      summary: Change the IP Filtering settings for the specified endpoint
+      description: Changes the settings for the Ip Filtering feature of the specified
+        endpint.It allows to enable/disable the feature entirely (enabled), allow/forbid
+        connection from the specified IP version (allowIpV4/allowIpV6), specify whether
+        the filtering list is permissive or restrictive (isBlackList) and set a new
+        content for the list of Ip Ranges part of the filter; each entry in the list
+        has an address (IPV4 or IPV6), an ip mask (specified as wildcard or number
+        of bits) and a description.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverIpFilteringManag'
+        required: true
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/default-settings/authentication-attempts:
+    get:
+      tags:
+      - Opcuaserver_Unsuccessful_Auth_Attempts
+      summary: Successfully retrieved authentication attempt settings
+      description: Gets the default actions to be performed when a large number of
+        failed authentication attempts are performed on an endpoint.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverUnsuccAuthAttempts'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Opcuaserver_Unsuccessful_Auth_Attempts
+      summary: Set the default actions for excessive failed authentication attempts
+      description: Sets the default actions to be performed when a large number of
+        failed authentication attempts are performed on an endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                perIP:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                    maxAttemptsPerSecond:
+                      type: integer
+                      minimum: 0
+                    permanentDisable:
+                      type: boolean
+                    disableTime:
+                      type: integer
+                      minimum: 0
+                    disableIncreaseFold:
+                      type: integer
+                      minimum: 0
+                  required:
+                  - enabled
+                  - maxAttemptsPerSecond
+                  - permanentDisable
+                  - disableTime
+                  - disableIncreaseFold
+                perCertificate:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                    maxAttemptsPerSecond:
+                      type: integer
+                      minimum: 0
+                    permanentDisable:
+                      type: boolean
+                    disableTime:
+                      type: integer
+                      minimum: 0
+                    disableIncreaseFold:
+                      type: integer
+                      minimum: 0
+                  required:
+                  - enabled
+                  - maxAttemptsPerSecond
+                  - permanentDisable
+                  - disableTime
+                  - disableIncreaseFold
+                perEndpoint:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                    maxAttemptsPerSecond:
+                      type: integer
+                      minimum: 0
+                    permanentDisable:
+                      type: boolean
+                    disableTime:
+                      type: integer
+                      minimum: 0
+                    disableIncreaseFold:
+                      type: integer
+                      minimum: 0
+                    dropConnections:
+                      type: boolean
+                  required:
+                  - enabled
+                  - maxAttemptsPerSecond
+                  - permanentDisable
+                  - disableTime
+                  - disableIncreaseFold
+                  - dropConnections
+              required:
+              - perIP
+              - perCertificate
+              - perEndpoint
+              additionalProperties: false
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints:
+    get:
+      tags:
+      - Opcuaserver_Endpoints_Management
+      summary: Get configured endpoints
+      description: "Returns a summary list of all configured OPC UA server endpoints.\n\
+        \nAccess protection status is represented as follows:\n\n- `certificateStatus\
+        \ = true` \u2192 There are certificates rejected during authentication due\
+        \ to access protection settings.\n- `ipStatus = true` \u2192 There are client\
+        \ IP addresses rejected during authentication due to access protection settings.\n\
+        - `endpointStatus = true` \u2192 The endpoint is temporarily or permanently\
+        \ disabled due to access protection settings.\n"
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverConfiguredEndpoints'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}:
+    get:
+      tags:
+      - Opcuaserver_Endpoints_Management
+      summary: Get endpoint details
+      description: Returns full configuration details for the specified endpoint.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverSpecificEndpoint'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Opcuaserver_Endpoints_Management
+      summary: Add a new endpoint definition
+      description: "Creates a new OPC UA endpoint definition.\n\nPKI behavior:\n-\
+        \ If `pkiSessionId` is provided, the temporary PKI with that GUID is used\
+        \ as the initial PKI of the endpoint.\n- If `pkiSessionId` is missing, or\
+        \ the temporary PKI does not contain an own certificate, a new certificate\
+        \ is automatically generated.\n- The `pkiSessionId` is invalidated after this\
+        \ call.\n\nValidation rules:\n- Endpoint name must be unique.\n- Endpoint\
+        \ URL must be in valid format.\n- `description`, `max-connections`, and `access`\
+        \ are optional.\n- `access` values must be selected from:\n  - Browse\n  -\
+        \ Read\n  - Write\n  - Subscribe\n  - Methods\n\nSecurity validation:\n- If\
+        \ `mode-none = true` \u2192 `policy-none` must be true.\n- If `mode-none =\
+        \ false` \u2192 `policy-none` must be false.\n- If `mode-sign` or `mode-signAndEncrypt\
+        \ = true`, at least one secure policy must be enabled.\n- If both `mode-sign`\
+        \ and `mode-signAndEncrypt = false`, all secure policies must be false.\n\n\
+        Authentication validation:\n- At least one of `none`, `credentials`, or `certificate`\
+        \ must be true.\n"
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverSpecificEndpointWithPKI'
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Opcuaserver_Endpoints_Management
+      summary: Update an existing endpoint
+      description: 'Partially updates an existing endpoint. Only changed attributes
+        must be included.
+
+
+        PKI behavior:
+
+        - If `pkiSessionId` is provided, it must reference a temporary PKI associated
+        with the current endpoint.
+
+        - The temporary PKI replaces the current endpoint PKI.
+
+        - Whether specified or not, any temporary PKI associated with the endpoint
+        is discarded and invalidated.
+
+
+        Validation:
+
+        - Any included attribute follows the same validation rules as endpoint creation.
+
+
+        Restart behavior:
+
+        The endpoint is restarted (all client sessions closed) if any of the following
+        change:
+
+        - `endpoint-url`
+
+        - `enabled`
+
+        - Any security parameter
+
+        - Any authentication parameter
+
+        - Own application certificate (PKI update)
+
+
+        Runtime behavior:
+
+        - Changing access rights has immediate effect on existing sessions.
+
+        - Existing subscriptions may stop/resume accordingly.
+
+        - Changing `max-connections` affects only future sessions.
+
+        - Changing trusted certificates affects only future sessions.
+
+
+        Reverse-connect:
+
+        - Can enable/disable feature.
+
+        - Defines reverse connection clients.
+
+        - If enabled, at least one enabled client must exist.
+
+        - Any reverse-connect change triggers endpoint restart.
+
+        '
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverSpecificEndpointWithPKI'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Opcuaserver_Endpoints_Management
+      summary: Delete endpoint
+      description: Deletes the specified endpoint.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}/users:
+    get:
+      tags:
+      - Opcuaserver_Users_Management
+      summary: Get the list of configured users for the specified endpoint
+      description: Get the list of the configured users for specified endpoint.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverEndpointUsers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}/users/{userId}:
+    get:
+      tags:
+      - Opcuaserver_Users_Management
+      summary: Get user details
+      description: Get the details for the specified <endpoint>/<userId> pair.
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverEndpointUser'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Opcuaserver_Users_Management
+      summary: Creates a new user assignment for the endpoint
+      description: "Add a new user to the current endpoint.Validity checks - {userId}\
+        \  specifies an user which must exist in the system (and assigned to \u201E\
+        OPC UA Server Users\u201C group); \u201Eaccess\u201C is a string array with\
+        \ values from the following set \u201EBrowse\u201C, \u201ERead\u201C, \u201E\
+        Write\u201C, \u201ESubscribe\u201C, \u201EMethods\u201C"
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverEndpointUser'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Opcuaserver_Users_Management
+      summary: Update user configuration
+      description: "Change the parameters for the specified <endpoint>/<userId> pair.\
+        \ Only the changed attribute has to be passed in the request content.Validity\
+        \ checks - \u201Eaccess\u201C is a string array with values from the following\
+        \ set \u201EBrowse\u201C,\u201ERead\u201C, \u201EWrite\u201C, \u201ESubscribe\u201C\
+        , \u201EMethods\u201C"
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverEndpointUser'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Opcuaserver_Users_Management
+      summary: Delete user from endpoint
+      description: Removes the specified user from the current endpoint.
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}/authentication-attempts:
+    get:
+      tags:
+      - Opcuaserver_Authentication_Attempts_Management
+      description: Gets the actions to be performed when a large number of failed
+        authentication attempts are performed on the specified endpoint, plus the
+        state of those actions.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/opcuaserverGetAuthAttempts'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Opcuaserver_Authentication_Attempts_Management
+      description: Changes the actions to be performed when a large number of failed
+        authentication attempts are performed on the specified existing endpoint.Only
+        the changed attribute has to be passed in the request content.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverPostAuthAttempts'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}/authentication-attempts/reset:
+    post:
+      tags:
+      - Opcuaserver_Authentication_Attempts_Management
+      description: If the endpoint is temporarily or permanently disabled as a result
+        of access protection restriction, this call shall reset the state of the access
+        protection and the endpoints shall be re-enabled.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}/authentication-attempts/reset-certificates:
+    post:
+      tags:
+      - Opcuaserver_Authentication_Attempts_Management
+      description: If one or more client certificates is temporarily or permanently
+        disabled on the given endpoint as a result of access protection restriction,
+        this call shall reset the state of the access protection for the certificates
+        with specified thumbprints.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverAuthResetCert'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/opcua-server/endpoints/{endpoint}/authentication-attempts/reset-ips:
+    post:
+      tags:
+      - Opcuaserver_Authentication_Attempts_Management
+      description: If one or more client IPs are temporarily or permanently disabled
+        on the given endpoint as a result of access protection restriction, this call
+        shall reset the state of the access protection for the specified IPs.
+      parameters:
+      - name: endpoint
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/opcuaserverAuthResetCert'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not Found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
   /runtime/mappedaddressspace/enabled:
     get:
       tags:
@@ -9074,7 +12460,7 @@ paths:
                         type: boolean
                       ConnectionStatus-PLC:
                         type: boolean
-                  - $ref: '#/components/schemas/sinumerik840dConnBasicOpt'
+                  - $ref: '#/components/schemas/sinumerik840dConnBasicOptGetRequest'
         '500':
           description: Internal server error.
           content:
@@ -9098,7 +12484,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/sinumerik840dConnBasicOpt'
+              allOf:
+              - type: object
+                required:
+                - Name
+                - Address
+                - Enabled
+              - $ref: '#/components/schemas/sinumerik840dConnBasicOpt'
       responses:
         '200':
           description: OK success.
@@ -9142,7 +12534,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/sinumerik840dConnBasicOpt'
+                $ref: '#/components/schemas/sinumerik840dConnBasicOptGetRequest'
         '404':
           description: Not found.
           content:
@@ -9293,7 +12685,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/sinumerik840dConnBasicOpt'
+                $ref: '#/components/schemas/sinumerik840dConnBasicOptGetRequest'
         '500':
           description: Internal server error.
           content:
@@ -9805,6 +13197,471 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/siemenss32/s32connection:
+    get:
+      tags:
+      - Siemens_S7_32
+      description: Retrieve all configured Siemens Siemens S7-32 connections information.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/siemensS732Conn'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Siemens_S7_32
+      summary: Creates a new Siemens Siemens S7-32 connection
+      description: 'Creates a new Siemens Siemens S7-32 connection and persists the
+        information in the configuration file.
+
+        If enabled it applies it immediately after a succeess confirmation.
+
+        Each newly created connection to a data source has to be added into an existing
+        address space.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/siemensS732BasicOpt'
+              - type: object
+                required:
+                - Name
+                - Address
+                - Enabled
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/siemenss32/s32connection/{conn_name}:
+    parameters:
+    - name: conn_name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Siemens_S7_32
+      description: Retrieve configured Siemens Siemens S7-32 connection identified
+        by *conn_name*.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/siemensS732BasicOptGetRequest'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Siemens_S7_32
+      summary: Updates an existing Siemens Siemens S7-32 connection
+      description: 'Updates an existing Siemens Siemens S7-32 connection with the
+        new information.
+
+        If changes are detected and if enabled it applies it immediately after a succeess
+        confirmation.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/siemensS732BasicOpt'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Siemens_S7_32
+      description: Deletes the Siemens S7-32 connection identified by name *conn_name*.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/siemenss32/s32connection/{conn_name}/symbolfile:
+    parameters:
+    - name: conn_name
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      tags:
+      - Siemens_S7_32
+      description: Upload an SDFI symbol file for the connection identified by name
+        *conn_name*.
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/siemenss32/s32connection/advanced/defaults:
+    get:
+      tags:
+      - Siemens_S7_32
+      description: Retrieves default advanced settings values.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/siemensS732BasicOptGetRequest'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/siemenss72/s72connection:
+    get:
+      tags:
+      - Siemens_S7_72
+      description: Retrieve all configured Siemens S7-72 connections.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/siemensS772Conns'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Siemens_S7_72
+      summary: Creates a new Siemens S7-72 connection
+      description: Creates a new Siemens S7-72 connection and applies it immediately
+        after a success confirmation. Each newly created connection to a data source
+        has to be added into an existing address space.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/siemensS772BasicOpt'
+              - type: object
+                required:
+                - Name
+                - Address
+                - Enabled
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/siemenss72/s72connection/{conn_name}:
+    parameters:
+    - name: conn_name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Siemens_S7_72
+      description: Retrieve the Siemens S7-72 connection identified by name *conn_name*.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/siemensS772BasicOptGetRequest'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Siemens_S7_72
+      description: Updates an existing Siemens S7-72 connection with the new information
+        and applies it immediately after a success confirmation.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/siemensS772BasicOpt'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Siemens_S7_72
+      description: Deletes the Siemens S7-72 connection identified by name *conn_name*.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/siemenss72/s72connection/advanced/defaults:
+    get:
+      tags:
+      - Siemens_S7_72
+      description: Retrieves default advanced settings values.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/siemensS772BasicOptGetRequest'
         406:
           description: Not Acceptable. Default user password was not changed.
           content:
@@ -10630,6 +14487,849 @@ components:
       description: List of read results for each requested node.
       items:
         $ref: '#/components/schemas/httpuaserverReadNode'
+    opcuaclientPostTestConnection:
+      type: object
+      required:
+      - Access
+      - name
+      - URL
+      - Enabled
+      - trusted-certificates-only
+      - security-mode
+      - security-policy
+      - authentication
+      - user-id
+      - AdvancedSettings
+      - pkiSessionId
+      properties:
+        Access:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        URL:
+          type: string
+        Enabled:
+          type: boolean
+        trusted-certificates-only:
+          type: boolean
+        security-mode:
+          type: string
+        security-policy:
+          type: string
+        authentication:
+          type: string
+        user-id:
+          type: string
+        AdvancedSettings:
+          type: object
+          required:
+          - allowEmptyNonce
+          - alternateDiscoveryUrl
+          - connectionMonitoringInterval
+          - dataAccessServicesTimeout
+          - networkTimeout
+          - normaliseServerTimestamp
+          - normaliseSourceTimestamp
+          - publishServiceTimeout
+          - sessionRetryTimer
+          - sessionServiceTimeout
+          - sessionSetupTimeout
+          - sessionTimeout
+          - subAndMIServiceTimeout
+          - subKeepAliveCounter
+          - subLifetimeCounter
+          - subMaxNotificationsPerPublish
+          - useAlternateDiscoveryUrl
+          - viewServicesTimeout
+          properties:
+            allowEmptyNonce:
+              type: boolean
+            alternateDiscoveryUrl:
+              type: string
+            connectionMonitoringInterval:
+              type: integer
+            dataAccessServicesTimeout:
+              type: integer
+            networkTimeout:
+              type: integer
+            normaliseServerTimestamp:
+              type: boolean
+            normaliseSourceTimestamp:
+              type: boolean
+            publishServiceTimeout:
+              type: integer
+            sessionRetryTimer:
+              type: integer
+            sessionServiceTimeout:
+              type: integer
+            sessionSetupTimeout:
+              type: integer
+            sessionTimeout:
+              type: integer
+            subAndMIServiceTimeout:
+              type: integer
+            subKeepAliveCounter:
+              type: integer
+            subLifetimeCounter:
+              type: integer
+            subMaxNotificationsPerPublish:
+              type: integer
+            useAlternateDiscoveryUrl:
+              type: boolean
+            viewServicesTimeout:
+              type: integer
+        pkiSessionId:
+          type: string
+    opcuaclientNameModel:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    opcuaclientCertificateDetails:
+      type: object
+      required:
+      - serialNumber
+      - validFrom
+      - validTo
+      - thumbprint
+      - subject
+      - issuer
+      - subjectAlternativeName
+      - keyUsages
+      properties:
+        serialNumber:
+          type: string
+        validFrom:
+          type: string
+        validTo:
+          type: string
+        thumbprint:
+          type: string
+        subject:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/opcuaclientNameModel'
+        issuer:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/opcuaclientNameModel'
+        subjectAlternativeName:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/opcuaclientNameModel'
+        keyUsages:
+          type: array
+          items:
+            type: string
+    opcuaclientEnabledState:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+    opcuaclientConnection:
+      type: object
+      required:
+      - URL
+      - authentication
+      - name
+      - Enabled
+      - security-mode
+      - security-policy
+      - trusted-certificates-only
+      - Access
+      - AdvancedSettings
+      properties:
+        URL:
+          type: string
+        authentication:
+          type: string
+        name:
+          type: string
+        Enabled:
+          type: boolean
+        security-mode:
+          type: string
+        security-policy:
+          type: string
+        trusted-certificates-only:
+          type: boolean
+        Access:
+          type: array
+          items:
+            type: string
+        AdvancedSettings:
+          type: object
+          required:
+          - allowEmptyNonce
+          - alternateDiscoveryUrl
+          - connectionMonitoringInterval
+          - dataAccessServicesTimeout
+          - networkTimeout
+          - normaliseServerTimestamp
+          - normaliseSourceTimestamp
+          - publishServiceTimeout
+          - sessionRetryTimer
+          - sessionServiceTimeout
+          - sessionSetupTimeout
+          - sessionTimeout
+          - subAndMIServiceTimeout
+          - subKeepAliveCounter
+          - subLifetimeCounter
+          - subMaxNotificationsPerPublish
+          - useAlternateDiscoveryUrl
+          - viewServicesTimeout
+          properties:
+            allowEmptyNonce:
+              type: boolean
+            alternateDiscoveryUrl:
+              type: string
+            connectionMonitoringInterval:
+              type: integer
+            dataAccessServicesTimeout:
+              type: integer
+            networkTimeout:
+              type: integer
+            normaliseServerTimestamp:
+              type: boolean
+            normaliseSourceTimestamp:
+              type: boolean
+            publishServiceTimeout:
+              type: integer
+            sessionRetryTimer:
+              type: integer
+            sessionServiceTimeout:
+              type: integer
+            sessionSetupTimeout:
+              type: integer
+            sessionTimeout:
+              type: integer
+            subAndMIServiceTimeout:
+              type: integer
+            subKeepAliveCounter:
+              type: integer
+            subLifetimeCounter:
+              type: integer
+            subMaxNotificationsPerPublish:
+              type: integer
+            useAlternateDiscoveryUrl:
+              type: boolean
+            viewServicesTimeout:
+              type: integer
+    opcuaclientConnections:
+      type: array
+      items:
+        allOf:
+        - $ref: '#/components/schemas/opcuaclientConnection'
+    opcuaclientPerformanceSettings:
+      type: object
+      required:
+      - maxBrowseNextRequestsPerTransaction
+      - maxBrowseReferenceDescriptions
+      - maxBrowseRequestsPerTransaction
+      - maxQueuedBrowseNextTransactions
+      - maxQueuedBrowseTransactions
+      - maxQueuedReadTransactions
+      - maxReadRequestsPerTransaction
+      - profileType
+      properties:
+        maxBrowseNextRequestsPerTransaction:
+          type: integer
+        maxBrowseReferenceDescriptions:
+          type: integer
+        maxBrowseRequestsPerTransaction:
+          type: integer
+        maxQueuedBrowseNextTransactions:
+          type: integer
+        maxQueuedBrowseTransactions:
+          type: integer
+        maxQueuedReadTransactions:
+          type: integer
+        maxReadRequestsPerTransaction:
+          type: integer
+        profileType:
+          type: integer
+    opcuaclientPerformanceProfiles:
+      type: array
+      items:
+        required:
+        - Label
+        - maxBrowseNextRequestsPerTransaction
+        - maxBrowseReferenceDescriptions
+        - maxBrowseRequestsPerTransaction
+        - maxQueuedBrowseNextTransactions
+        - maxQueuedBrowseTransactions
+        - maxQueuedReadTransactions
+        - maxReadRequestsPerTransaction
+        - profileType
+        properties:
+          Label:
+            type: string
+          maxBrowseNextRequestsPerTransaction:
+            type: integer
+          maxBrowseReferenceDescriptions:
+            type: integer
+          maxBrowseRequestsPerTransaction:
+            type: integer
+          maxQueuedBrowseNextTransactions:
+            type: integer
+          maxQueuedBrowseTransactions:
+            type: integer
+          maxQueuedReadTransactions:
+            type: integer
+          maxReadRequestsPerTransaction:
+            type: integer
+          profileType:
+            type: integer
+    opcuaclientTestSpecificConnection:
+      type: object
+      required:
+      - buildDate
+      - connectionSuccess
+      - currentTime
+      - localeIds
+      - manufacturerName
+      - maxBrowseCP
+      - maxMonitoredItems
+      - maxNodesBrowse
+      - maxNodesMethod
+      - maxNodesRead
+      - maxNodesTranslate
+      - maxNodesWrite
+      - minSamplingRate
+      - productName
+      - productUri
+      - serverState
+      - sessionId
+      - sessionName
+      - softwareVersion
+      - startTime
+      - statusCode
+      properties:
+        buildDate:
+          type: string
+        connectionSuccess:
+          type: boolean
+        currentTime:
+          type: string
+        localeIds:
+          type: string
+        manufacturerName:
+          type: string
+        maxBrowseCP:
+          type: string
+        maxMonitoredItems:
+          type: string
+        maxNodesBrowse:
+          type: string
+        maxNodesMethod:
+          type: string
+        maxNodesRead:
+          type: string
+        maxNodesTranslate:
+          type: string
+        maxNodesWrite:
+          type: string
+        minSamplingRate:
+          type: string
+        productName:
+          type: string
+        productUri:
+          type: string
+        serverState:
+          type: string
+        sessionId:
+          type: string
+        sessionName:
+          type: string
+        softwareVersion:
+          type: string
+        startTime:
+          type: string
+        statusCode:
+          type: string
+    opcuaclientConnectionAdvancedSettings:
+      type: object
+      required:
+      - allowEmptyNonce
+      - alternateDiscoveryUrl
+      - connectionMonitoringInterval
+      - dataAccessServicesTimeout
+      - networkTimeout
+      - normaliseServerTimestamp
+      - normaliseSourceTimestamp
+      - publishServiceTimeout
+      - sessionRetryTimer
+      - sessionServiceTimeout
+      - sessionSetupTimeout
+      - sessionTimeout
+      - subAndMIServiceTimeout
+      - subKeepAliveCounter
+      - subLifetimeCounter
+      - subMaxNotificationsPerPublish
+      - useAlternateDiscoveryUrl
+      - viewServicesTimeout
+      properties:
+        allowEmptyNonce:
+          type: boolean
+        alternateDiscoveryUrl:
+          type: string
+        connectionMonitoringInterval:
+          type: integer
+        dataAccessServicesTimeout:
+          type: integer
+        networkTimeout:
+          type: integer
+        normaliseServerTimestamp:
+          type: boolean
+        normaliseSourceTimestamp:
+          type: boolean
+        publishServiceTimeout:
+          type: integer
+        sessionRetryTimer:
+          type: integer
+        sessionServiceTimeout:
+          type: integer
+        sessionSetupTimeout:
+          type: integer
+        sessionTimeout:
+          type: integer
+        subAndMIServiceTimeout:
+          type: integer
+        subKeepAliveCounter:
+          type: integer
+        subLifetimeCounter:
+          type: integer
+        subMaxNotificationsPerPublish:
+          type: integer
+        useAlternateDiscoveryUrl:
+          type: boolean
+        viewServicesTimeout:
+          type: integer
+    opcuaserverAuthResetCert:
+      type: array
+      items:
+        type: string
+    opcuaserverEndpointUsers:
+      type: array
+      items:
+        type: object
+        properties:
+          user:
+            type: string
+          certificate:
+            type: string
+          session:
+            type: string
+          enabled:
+            type: boolean
+    opcuaserverEndpointUser:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        max-connections:
+          type: integer
+        session:
+          type: string
+        access:
+          type: array
+          items:
+            type: string
+    opcuaserverSpecificEndpoint:
+      type: object
+      properties:
+        name:
+          type: string
+        endpoint-url:
+          type: string
+        enabled:
+          type: boolean
+        description:
+          type: string
+        max-connections:
+          type: integer
+        access:
+          type: array
+          items:
+            type: string
+        security:
+          type: object
+          properties:
+            mode-none:
+              type: boolean
+              description: if mode-none = true -> policy-none has to be true; if mode-none
+                = false -> policy-none has to be false
+            mode-sign:
+              type: boolean
+              description: if mode-sign or/and mode-signAndEncrypt = true -> policy-basic128rsa15
+                or/and policy-basic256 or/and policy-basic256sha256 or/and policy-Aes128Sha256RsaOaep
+                or/and policy-Aes256Sha256RsaPss has to be true
+            mode-signAndEncrypt:
+              type: boolean
+              description: if mode-sign and mode-signAndEncrypt = false -> policy-basic128rsa15
+                and policy-basic256 or/and policy-basic256sha256 or/and policy-Aes128Sha256RsaOaep
+                or/and policy-Aes256Sha256RsaPss has to be false
+            policy-none:
+              type: boolean
+            policy-basic128rsa15:
+              type: boolean
+            policy-basic256:
+              type: boolean
+            policy-basic256sha256:
+              type: boolean
+            policy-Aes128Sha256RsaOaep:
+              type: boolean
+            policy-Aes256Sha256RsaPss:
+              type: boolean
+        authentication:
+          type: object
+          description: Authentication validity checks by at least one of none, credentials
+            and certificate has to be true.
+          properties:
+            none:
+              type: boolean
+            credentials:
+              type: boolean
+            certificate:
+              type: boolean
+        advancedSettings:
+          type: object
+          properties:
+            restrictedEndpointDesc:
+              type: boolean
+    opcuaserverSpecificEndpointWithPKI:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/opcuaserverSpecificEndpoint'
+      - type: object
+        properties:
+          pkiSessionId:
+            type: string
+            description: "The temporary PKI with the given pkiSessionId is used as\
+              \ the initial PKI of the endpoint.If \"pkiSessionId\" is missing or\
+              \ if the temporary PKI does not contain an own certificate, a new certificate\
+              \ is automatically generated for the endpoint.The pkiSessionId is invalidated\
+              \ as a result of this call.Validity checks\n- Unique name\n- Correct\
+              \ endpoint format\n- \u201Edescription\u201C, \u201Emax-connections\u201C\
+              , \u201Eaccess\u201C are optional\n- \u201Eaccess\u201C is a string\
+              \ array with values from the following set \u201EBrowse\u201C, \u201E\
+              Read\u201C, \u201EWrite\u201C, \u201ESubscribe\u201C, \u201EMethods\u201C"
+    opcuaserverConfiguredEndpoint:
+      type: object
+      properties:
+        name:
+          type: string
+        endpoint-url:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        accessProtection:
+          type: object
+          properties:
+            certificateStatus:
+              description: certificateStatus is true if there are any certificates
+                which are rejected during authentication as resulted from the access
+                protection configuration settings.
+              type: boolean
+            endpointStatus:
+              description: endpointStatus is true is the endpoint is temporarily or
+                permanently disabled as resulted from the access protection configuration
+                settings.
+              type: boolean
+            ipStatus:
+              description: ipStatus is true if there are client IP addresses which
+                are rejected during authentication as resulted from the access protection
+                configuration settings.
+              type: boolean
+    opcuaserverConfiguredEndpoints:
+      type: array
+      items:
+        allOf:
+        - $ref: '#/components/schemas/opcuaserverConfiguredEndpoint'
+    opcuaserverDetailsUnsuccAuth:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        maxAttemptsPerSecond:
+          type: integer
+          description: 0 = unlimeted
+        permanentDisable:
+          type: boolean
+        disableTime:
+          type: integer
+          description: seconds
+        disableIncreaseFold:
+          type: integer
+          description: times increase
+    opcuaserverUnsuccAuthAttempts:
+      type: object
+      properties:
+        perIP:
+          type: object
+          description: Rules applied per client IP address
+          properties:
+            enabled:
+              type: boolean
+              description: Enable authentication attempt limiting per IP
+            maxAttemptsPerSecond:
+              type: integer
+              minimum: 0
+              description: Maximum failed authentication attempts per second. 0 means
+                unlimited.
+            permanentDisable:
+              type: boolean
+              description: Permanently disable the IP after exceeding limits
+            disableTime:
+              type: integer
+              minimum: 0
+              description: Time in seconds for temporary disablement
+            disableIncreaseFold:
+              type: integer
+              minimum: 0
+              description: Multiplier applied to disable time after repeated failures
+          required:
+          - enabled
+          - maxAttemptsPerSecond
+          - permanentDisable
+          - disableTime
+          - disableIncreaseFold
+        perCertificate:
+          type: object
+          description: Rules applied per client certificate
+          properties:
+            enabled:
+              type: boolean
+            maxAttemptsPerSecond:
+              type: integer
+              minimum: 0
+            permanentDisable:
+              type: boolean
+            disableTime:
+              type: integer
+              minimum: 0
+            disableIncreaseFold:
+              type: integer
+              minimum: 0
+          required:
+          - enabled
+          - maxAttemptsPerSecond
+          - permanentDisable
+          - disableTime
+          - disableIncreaseFold
+        perEndpoint:
+          type: object
+          description: Rules applied per OPC UA endpoint
+          properties:
+            enabled:
+              type: boolean
+            maxAttemptsPerSecond:
+              type: integer
+              minimum: 0
+            permanentDisable:
+              type: boolean
+            disableTime:
+              type: integer
+              minimum: 0
+            disableIncreaseFold:
+              type: integer
+              minimum: 0
+            dropConnections:
+              type: boolean
+              description: Drop existing connections after authentication failures
+                exceed limits
+          required:
+          - enabled
+          - maxAttemptsPerSecond
+          - permanentDisable
+          - disableTime
+          - disableIncreaseFold
+          - dropConnections
+      required:
+      - perIP
+      - perCertificate
+      - perEndpoint
+    opcuaserverGetAuthAttempts:
+      type: object
+      properties:
+        perIP:
+          allOf:
+          - $ref: '#/components/schemas/opcuaserverDetailsUnsuccAuth'
+          - type: object
+            description: list of currently blocked IPs
+            properties:
+              currentlyBlocked:
+                type: array
+                items:
+                  type: string
+        perCertificate:
+          allOf:
+          - $ref: '#/components/schemas/opcuaserverDetailsUnsuccAuth'
+          - type: object
+            properties:
+              currentlyBlocked:
+                description: each blocked certificate has the thumbprint to subject
+                  common name
+                type: object
+        perEndpoint:
+          allOf:
+          - $ref: '#/components/schemas/opcuaserverDetailsUnsuccAuth'
+          - type: object
+            properties:
+              dropConnections:
+                type: boolean
+          - type: object
+            properties:
+              currentlyBlocked:
+                type: boolean
+    opcuaserverNameModel:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+    opcuaserverCertificateDetails:
+      type: object
+      required:
+      - serialNumber
+      - validFrom
+      - validTo
+      - thumbprint
+      - subject
+      - issuer
+      - subjectAlternativeName
+      - keyUsages
+      properties:
+        serialNumber:
+          type: string
+        validFrom:
+          type: string
+        validTo:
+          type: string
+        thumbprint:
+          type: string
+        subject:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/opcuaserverNameModel'
+        issuer:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/opcuaserverNameModel'
+        subjectAlternativeName:
+          type: array
+          items:
+            allOf:
+            - $ref: '#/components/schemas/opcuaserverNameModel'
+        keyUsages:
+          type: array
+          items:
+            type: string
+    opcuaserverPostAuthAttempts:
+      type: object
+      properties:
+        perIP:
+          allOf:
+          - $ref: '#/components/schemas/opcuaserverDetailsUnsuccAuth'
+        perCertificate:
+          allOf:
+          - $ref: '#/components/schemas/opcuaserverDetailsUnsuccAuth'
+        perEndpoint:
+          allOf:
+          - $ref: '#/components/schemas/opcuaserverDetailsUnsuccAuth'
+          - type: object
+            properties:
+              dropConnections:
+                type: boolean
+    opcuaserverIpFilteringManag:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Enable or disable the IP Filtering feature
+        allowIpV4:
+          type: boolean
+          description: Allow or deny IPv4 connections
+        allowIpV6:
+          type: boolean
+          description: Allow or deny IPv6 connections
+        isBlackList:
+          type: boolean
+          description: True = blacklist mode, False = whitelist mode
+        ipRangeList:
+          type: array
+          description: Updated list of IP ranges included in the filter
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                description: IPv4 or IPv6 address
+              description:
+                type: string
+                description: User-defined description for the IP range
+              mask:
+                type: string
+                description: IP mask specified as wildcard or number of bits
+            required:
+            - address
+            - mask
+      required:
+      - enabled
+      - allowIpV4
+      - allowIpV6
+      - isBlackList
+      - ipRangeList
+    opcuaserverEnabledState:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+    opcuaserverCertificate:
+      type: object
+      properties:
+        certificate:
+          type: string
+          format: binary
+    opcuaserverUrl:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          description: Discovery server URL
+    opcuaserverDiscovery:
+      type: object
+      required:
+      - profile
+      - certificate
+      allOf:
+      - $ref: '#/components/schemas/opcuaserverUrl'
+      - type: object
+        properties:
+          profile:
+            type: string
+            description: Discovery server profile
+          certificate:
+            type: string
+            description: Discovery server certificate (base64 or string encoded)
     MAS_basic_properties:
       type: object
       required:
@@ -11779,29 +16479,6 @@ components:
               type: boolean
     sinumerik840dConnBasicOpt:
       type: object
-      required:
-      - Name
-      - Address
-      - Port
-      - Enabled
-      - EnableNCK
-      - EnablePLC
-      - EnableNCUAlarm
-      - EnableNCKTooling
-      - ConnectionTimeout
-      - ReconnectRetryCounter
-      - ReconnectRetryPeriod
-      - MaxExecutingServices
-      - RequestTimeout
-      - ServiceTimeout
-      - TSAPNCK
-      - TSAPPLC
-      - AMQPLC
-      - AMQNCK
-      - AWLFileName
-      - SDFIFileName
-      - ReadOnlyNCU
-      - ReadOnlyPLC
       properties:
         Name:
           description: Connection name.
@@ -11826,32 +16503,39 @@ components:
         EnableNCUAlarm:
           description: Enable NCU Alarm.
           type: boolean
+          default: false
         EnableNCKTooling:
           type: boolean
         ConnectionTimeout:
           description: Connection "watchdog" timeout. Used to monitor the connection.
           type: integer
           minimum: 0
+          default: 10000
         ReconnectRetryCounter:
           description: Consecutive reconnect attempts delay.
           type: integer
           minimum: 0
+          default: 0
         ReconnectRetryPeriod:
           description: Reconnect attempts limit. 0 = no limit.
           type: integer
           minimum: 0
+          default: 1000
         MaxExecutingServices:
           description: Number of maximum concurrent executing services.
           type: integer
           minimum: 0
+          default: 1000
         RequestTimeout:
           description: S7 Protocol request timeout.
           type: integer
           minimum: 1000
+          default: 3000
         ServiceTimeout:
           description: Maximum allowed time for a service completion.
           type: integer
           minimum: 0
+          default: 60000
         TSAPNCK:
           description: NCK Destination TSAP.
           type: string
@@ -11860,8 +16544,12 @@ components:
           type: string
         AMQPLC:
           type: integer
+          minimum: 0
+          default: 100
         AMQNCK:
           type: integer
+          minimum: 0
+          default: 100
         AWLFileName:
           type: string
         SDFIFileName:
@@ -11870,6 +16558,34 @@ components:
           type: boolean
         ReadOnlyPLC:
           type: boolean
+          default: false
+    sinumerik840dConnBasicOptGetRequest:
+      allOf:
+      - $ref: '#/components/schemas/sinumerik840dConnBasicOpt'
+      - type: object
+        required:
+        - Name
+        - Address
+        - Enabled
+        - EnableNCK
+        - EnablePLC
+        - EnableNCUAlarm
+        - EnableNCKTooling
+        - Port
+        - ConnectionTimeout
+        - ReconnectRetryCounter
+        - ReconnectRetryPeriod
+        - RequestTimeout
+        - MaxExecutingServices
+        - ServiceTimeout
+        - TSAPNCK
+        - TSAPPLC
+        - AMQPLC
+        - AMQNCK
+        - AWLFileName
+        - SDFIFileName
+        - ReadOnlyNCU
+        - ReadOnlyPLC
     fanucConn:
       type: object
       required:
@@ -11944,6 +16660,191 @@ components:
       items:
         allOf:
         - $ref: '#/components/schemas/allenbradleyConn'
+    siemensS772BasicOpt:
+      type: object
+      properties:
+        Name:
+          description: Connection name.
+          type: string
+        Address:
+          description: Server hostname or ip address.
+          type: string
+        Enabled:
+          description: Enable status of the connection.
+          type: boolean
+        Port:
+          description: Protocol TCP port number. Default = 102.
+          type: integer
+          minimum: 0
+          default: 102
+        ConnectionTimeout:
+          description: "Connection \u201Cwatchdog\u201D timeout. Used to monitor the\
+            \ connection."
+          type: integer
+          minimum: 0
+          default: 10000
+        ReconnectRetryCounter:
+          description: Consecutive reconnect attempts delay.
+          type: integer
+          minimum: 0
+          default: 0
+        ReconnectRetryPeriod:
+          description: econnect attempts limit. 0 = no limit.
+          type: integer
+          minimum: 0
+          default: 1000
+        RequestTimeout:
+          description: S7 Protocol request timeout.
+          type: integer
+          minimum: 1000
+          default: 3000
+        ServiceTimeout:
+          description: Maximum allowed time for a service completion.
+          type: integer
+          minimum: 0
+        MaxExecutingServices:
+          description: Number of maximum concurrent executing services
+          type: integer
+          minimum: 0
+          default: 1000
+        ConfigurationCheckPeriod:
+          description: Used as a connection keep alive and to verify PLC program changes.
+          type: integer
+          minimum: 0
+          default: 5000
+        FolderLongNames:
+          description: Use long folder names in the address space.
+          type: boolean
+          default: false
+        TLSEnabled:
+          description: Enable TLS.
+          type: boolean
+          default: false
+    siemensS772BasicOptGetRequest:
+      allOf:
+      - $ref: '#/components/schemas/siemensS772BasicOpt'
+      - type: object
+        required:
+        - Name
+        - Address
+        - Enabled
+        - Port
+        - ConnectionTimeout
+        - ReconnectRetryCounter
+        - ReconnectRetryPeriod
+        - RequestTimeout
+        - MaxExecutingServices
+        - ServiceTimeout
+        - TSAPPLC
+        - AMQPLC
+        - SDFIFileName
+        - ConfigurationCheckPeriod
+        - FolderLongNames
+        - TLSEnabled
+    siemensS772Conns:
+      type: array
+      items:
+        allOf:
+        - $ref: '#/components/schemas/siemensS772BasicOptGetRequest'
+        - type: object
+          required:
+          - ConnectionStatus
+          - Licensed
+          properties:
+            ConnectionStatus:
+              type: boolean
+            Licensed:
+              type: boolean
+    siemensS732BasicOpt:
+      type: object
+      properties:
+        Name:
+          description: Connection name.
+          type: string
+        Address:
+          description: Server hostname or ip address.
+          type: string
+        Enabled:
+          description: Enable status of the connection.
+          type: boolean
+        ExpandArrays:
+          type: boolean
+          default: false
+        Port:
+          description: Protocol TCP port number. Default = 102.
+          type: integer
+          minimum: 0
+          default: 102
+        ConnectionTimeout:
+          description: "Connection \u201Cwatchdog\u201D timeout. Used to monitor the\
+            \ connection."
+          type: integer
+          minimum: 0
+          default: 10000
+        ReconnectRetryCounter:
+          description: Consecutive reconnect attempts delay.
+          type: integer
+          minimum: 0
+          default: 0
+        ReconnectRetryPeriod:
+          description: econnect attempts limit. 0 = no limit.
+          type: integer
+          minimum: 0
+          default: 1000
+        RequestTimeout:
+          description: S7 Protocol request timeout.
+          type: integer
+          minimum: 1000
+          default: 3000
+        ServiceTimeout:
+          description: Maximum allowed time for a service completion.
+          type: integer
+          minimum: 0
+        MaxExecutingServices:
+          description: Number of maximum concurrent executing services
+          type: integer
+          minimum: 0
+          default: 1000
+        TSAPPLC:
+          description: PLC Destination TSAP.
+          type: string
+        AMQPLC:
+          type: integer
+          minimum: 0
+          default: 100
+        SDFIFileName:
+          type: string
+    siemensS732BasicOptGetRequest:
+      allOf:
+      - $ref: '#/components/schemas/siemensS732BasicOpt'
+      - type: object
+        required:
+        - Name
+        - Address
+        - Enabled
+        - ExpandArrays
+        - Port
+        - ConnectionTimeout
+        - ReconnectRetryCounter
+        - ReconnectRetryPeriod
+        - RequestTimeout
+        - MaxExecutingServices
+        - ServiceTimeout
+        - TSAPPLC
+        - AMQPLC
+        - SDFIFileName
+    siemensS732Conn:
+      allOf:
+      - type: object
+        required:
+        - ConnectionStatus
+        - Licensed
+        properties:
+          ConnectionStatus:
+            type: boolean
+          Licensed:
+            type: boolean
+      - $ref: '#/components/schemas/siemensS732BasicOptGetRequest'
   securitySchemes:
     AuthHeader:
       type: apiKey
