@@ -111,6 +111,42 @@
     },
     {
       "name": "MappedAddressSpace_Edit_Session"
+    },
+    {
+      "name": "Mqtt_Enabled_State"
+    },
+    {
+      "name": "Mqtt_Common_Settings"
+    },
+    {
+      "name": "Mqtt_Connections"
+    },
+    {
+      "name": "Mqtt_Publish_Requests"
+    },
+    {
+      "name": "Mqtt_Subscribe_Requests"
+    },
+    {
+      "name": "Mqtt_Testing_Connections"
+    },
+    {
+      "name": "Mqtt_Management_of_Temporary_PKI_while_editing"
+    },
+    {
+      "name": "Mqtt_Special_Placeholders"
+    },
+    {
+      "name": "Mqtt_LUA"
+    },
+    {
+      "name": "Siemens_Sinumerik_840D"
+    },
+    {
+      "name": "Fanuc"
+    },
+    {
+      "name": "Allen_Bradley"
     }
   ],
   "paths": {
@@ -2713,826 +2749,6 @@
           },
           "404": {
             "description": "Not found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/core/ldap/edit-certificates": {
-      "post": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Creates a temporary PKI for the managing the LDAP certificates associated to the specified LDAP server ID. The content of the temprary PKI is copied from the specified server profile.",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "profileName"
-                ],
-                "properties": {
-                  "profileName": {
-                    "type": "string",
-                    "enum": [
-                      "main",
-                      "backup"
-                    ]
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "pkiSessionId"
-                  ],
-                  "properties": {
-                    "pkiSessionId": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/core/ldap/edit-certificates/{session-GUID}": {
-      "delete": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Deletes the specified temporary PKI (so all changes on it are cancelled).",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/core/ldap/edit-certificates/{session-GUID}/prepare-upload": {
-      "post": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Set the certificate password for the next certificate private key or PFX upload.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "password"
-                ],
-                "properties": {
-                  "password": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/core/ldap/edit-certificates/{session-GUID}/certificates": {
-      "get": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Returns some details of the client certificate (associated to the current LDAP server PKI store).",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "name",
-                    "validTo",
-                    "thumbprint"
-                  ],
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "validTo": {
-                      "type": "string"
-                    },
-                    "thumbprint": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Uploads a certificate (DER or PEM format) or a PFX containing a certificate and the corresponding private key. The certificate will have the description set in a previous call to runtime/core/edit-user-certificate/<session-GUID>/prepare-upload.Also, if a PFX is uploaded, the password set in the previous call is used to decrypt the private key from that PFX.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/octet-stream": {
-              "schema": {
-                "type": "string",
-                "format": "binary"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/core/ldap/edit-certificates/{session-GUID}/issuer": {
-      "get": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Returns some details of the client certificate (associated to the current LDAP server PKI store).",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "name",
-                    "validTo",
-                    "thumbprint"
-                  ],
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "validTo": {
-                      "type": "string"
-                    },
-                    "thumbprint": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Uploads a certificate (DER or PEM format) or a PFX containing a certificate and the corresponding private key. The certificate will have the description set in a previous call to runtime/core/edit-user-certificate/<session-GUID>/prepare-upload.Also, if a PFX is uploaded, the password set in the previous call is used to decrypt the private key from that PFX.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/octet-stream": {
-              "schema": {
-                "type": "string",
-                "format": "binary"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/core/ldap/edit-certificates/{session-GUID}/private-key": {
-      "put": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Uploads the private key  for the previously uploaded certificate (in DER or PEM format). The call must be subsequent to a previous call to runtime/core/edit-user-certificate/<session-GUID>/certificate with a valid DER or PEM certificate content.It also must be done in the same session of certificate editing.The password provided in a previous call to runtime/core/edit-user-certificate/<session-GUID>/prepare-upload will be used to decrypt the private key.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/octet-stream": {
-              "schema": {
-                "type": "string",
-                "format": "binary"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "406": {
-            "description": "Not Acceptable. Default user password was not changed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/runtime/core/ldap/edit-certificates/{session-GUID}/certificates/{thumbprint}": {
-      "get": {
-        "tags": [
-          "Core_Ldap_Auth_Management"
-        ],
-        "description": "Returns details of the selected user certificate.",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "session-GUID",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          },
-          {
-            "in": "path",
-            "name": "thumbprint",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK success.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "applicationURL",
-                    "domain",
-                    "issuer",
-                    "keyUsages",
-                    "name",
-                    "serialNumber",
-                    "storePath",
-                    "subject",
-                    "subjectAlternativeName",
-                    "thumbprint",
-                    "validFrom",
-                    "validTo"
-                  ],
-                  "properties": {
-                    "applicationURL": {
-                      "type": "string"
-                    },
-                    "domain": {
-                      "type": "string"
-                    },
-                    "issuer": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "name",
-                          "value"
-                        ],
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "value": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    "keyUsages": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "serialNumber": {
-                      "type": "string"
-                    },
-                    "storePath": {
-                      "type": "string"
-                    },
-                    "subject": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "name",
-                          "value"
-                        ],
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "value": {
-                            "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    "subjectAlternativeName": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "thumbprint": {
-                      "type": "string"
-                    },
-                    "validFrom": {
-                      "type": "string"
-                    },
-                    "validTo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResponseOthers"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -11024,6 +10240,3960 @@
           }
         }
       }
+    },
+    "/runtime/mqtt/enabled": {
+      "get": {
+        "tags": [
+          "Mqtt_Enabled_State"
+        ],
+        "description": "Get the enabled state of the MQTT module.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mqttEnabledState"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Mqtt_Enabled_State"
+        ],
+        "description": "Change the enabled state of the MQTT module. The state change is applied immediately.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mqttEnabledState"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/common-settings": {
+      "get": {
+        "tags": [
+          "Mqtt_Common_Settings"
+        ],
+        "description": "Get the common settings for the MQTT module.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mqttCommonSettings"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/connections": {
+      "get": {
+        "tags": [
+          "Mqtt_Connections"
+        ],
+        "description": "Get all configured MQTT connections.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MqttConnection"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Mqtt_Connections"
+        ],
+        "description": "Create a new MQTT connection.The possible values are the same as those in GET /runtime/mqtt/connection.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MqttConnectionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/connections/{conn_name}": {
+      "get": {
+        "tags": [
+          "Mqtt_Connections"
+        ],
+        "description": "Get the connection with the specified name.The possible values are the same as those in GET runtime/mqtt/connection.",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MqttConnection"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Mqtt_Connections"
+        ],
+        "description": "Modifies the connection with the specified name.",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Only the values that are to be modified have to be present. The possible values are the same as those in GET runtime/mqtt/connection. Setting a new connectionName means renaming the connection. All subsequent calls need to use the new name. Changing any of the values leads to restarting the connection, except for the connectionName.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MqttConnectionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mqtt_Connections"
+        ],
+        "description": "Deletes the connection with the specified name.",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/connections/pub-request-basic": {
+      "get": {
+        "tags": [
+          "Mqtt_Publish_Requests"
+        ],
+        "summary": "Get basic publish request information",
+        "description": "Retrieves basic information about configured MQTT publish requests.\nField meanings are the same as the full version.\n",
+        "responses": {
+          "200": {
+            "description": "Basic publish requests retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "requestName": {
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "topicName": {
+                        "type": "string"
+                      },
+                      "connectionName": {
+                        "type": "string"
+                      },
+                      "mqttQoS": {
+                        "type": "string"
+                      },
+                      "publishInterval": {
+                        "type": "integer",
+                        "format": "uint32"
+                      },
+                      "dataRowTrigger": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/pub-requests": {
+      "get": {
+        "tags": [
+          "Mqtt_Publish_Requests"
+        ],
+        "summary": "Get configured publish requests",
+        "description": "Retrieves the configured publish requests for the MQTT module.\n\nNotes:\n  - `addressSpace` is stored only by the MQTT module and is not validated or used.\n  - The caller must manage session type to address space mapping.\n  - Session type is prefixed with `MqttPublisher_`.\n\nPossible values:\n  mqttQoS:\n    - Level0_AtMostOnce\n    - Level1_AtLeastOnce\n    - Level2_ExactlyOnce\n\n  publishingMode:\n    - multipleSamples\n    - singleSample\n    - alarmMode\n\n  dataRowTrigger:\n    - samplingTimer\n    - dataChange\n    - conditionalSamplingTimer\n    - conditionalTrigger\n    - advancedTrigger\n    - mqttTriggered\n\n  payloadFormat:\n    - json\n    - text (not implemented)\n    - xml (not implemented)\n",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "requestName": {
+                        "type": "string"
+                      },
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "topicName": {
+                        "type": "string"
+                      },
+                      "connectionName": {
+                        "type": "string"
+                      },
+                      "addressSpace": {
+                        "type": "string"
+                      },
+                      "mqttQoS": {
+                        "type": "string"
+                      },
+                      "publishInterval": {
+                        "type": "integer",
+                        "format": "uint32"
+                      },
+                      "publishingMode": {
+                        "type": "string"
+                      },
+                      "dataRowTrigger": {
+                        "type": "string"
+                      },
+                      "samplingInterval": {
+                        "type": "integer",
+                        "format": "uint32"
+                      },
+                      "dataRowTimeout": {
+                        "type": "integer",
+                        "format": "uint32"
+                      },
+                      "mqttTriggerSubscriberId": {
+                        "type": "string"
+                      },
+                      "payloadFormat": {
+                        "type": "string"
+                      },
+                      "template": {
+                        "type": "string"
+                      },
+                      "placeholders": {
+                        "type": "object"
+                      },
+                      "triggerSource": {
+                        "type": "object"
+                      },
+                      "advancedTrigger": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Mqtt_Publish_Requests"
+        ],
+        "description": "Creates a new publish request with the specified settings.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mqttPublishRequestWithConnName"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/pub-requests/{request-name}": {
+      "get": {
+        "tags": [
+          "Mqtt_Publish_Requests"
+        ],
+        "description": "Retrieves the the details of the named publish request.",
+        "parameters": [
+          {
+            "name": "request-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mqttPublishRequestWithConnName"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Publish_Requests"
+        ],
+        "description": "Deletes the publish request with the specified name <request-name>.",
+        "parameters": [
+          {
+            "name": "request-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Publish_Requests"
+        ],
+        "description": "Modifies the (existing) publish request specified in the URL as <request-name>.Only the fields whose values change have to be present.The possible values are the same as those in GET runtime/mqtt/connections/pub-request.Setting a new requestName means renaming the request. All subsequent calls need to use the new name.Performing the call on an url with conn-name different from the connection name the original publish request belongs to means reassigning the publish request the the specified conn-name connection.",
+        "parameters": [
+          {
+            "name": "request-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mqttPublishRequestWithConnName"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/sub-requests": {
+      "get": {
+        "tags": [
+          "Mqtt_Subscribe_Requests"
+        ],
+        "description": "Get the configured subscribe requests for MQTT module.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/mqttSubscribeRequests"
+                    },
+                    {
+                      "$ref": "#/components/schemas/mqttSubscribeRequestsBrief"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Mqtt_Subscribe_Requests"
+        ],
+        "description": "Creates a new subscribe request with the specified settings.All the fields have to be present. The possible values are the same as those in GET runtime/mqtt/connections/sub-request.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mqttSubscribeRequestToCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/sub-requests/{request-name}": {
+      "put": {
+        "tags": [
+          "Mqtt_Subscribe_Requests"
+        ],
+        "description": "Modifies the (existing) subscribe request specified in the URL as <request-name>. Only the fields whose values change have to be present (applicable only for the first level members; i.e. if the \"payloadDefinition\" is present, it must be provided with ALL the fields). The possible values are the same as those in GET runtime/mqtt/connections/sub-request. Setting a new requestName means renaming the request. All subsequent calls need to use the new name. Performing the call on an url with conn-name different from the connection name the original subscribe request belongs to means reassigning the subscribe request the the specified conn-name connection.",
+        "parameters": [
+          {
+            "name": "request-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/mqttSubscribeRequestBodyModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Mqtt_Subscribe_Requests"
+        ],
+        "description": "Retrieves the the details of the named subscribe request.",
+        "parameters": [
+          {
+            "name": "request-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mqttSubscribeGet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mqtt_Subscribe_Requests"
+        ],
+        "description": "Deletes the publish request with the specified name <request-name>.",
+        "parameters": [
+          {
+            "name": "request-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/connection-test": {
+      "post": {
+        "tags": [
+          "Mqtt_Testing_Connections"
+        ],
+        "summary": "Start MQTT connection availability test",
+        "description": "Initiates an asynchronous connection availability test.\n\nThe test result must be polled via:\n`/runtime/mqtt/connection-test/{connName}`\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MqttConnectionTestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Connection Test command was successfully received for processing.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A test command job is already in progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Indicates that the service cannot be called (in the current running mode).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/connection-test/{conn-name}": {
+      "get": {
+        "tags": [
+          "Mqtt_Testing_Connections"
+        ],
+        "summary": "Get MQTT connection test result",
+        "description": "Retrieves the asynchronous connection test result.\n\n`commonDetails` should always be displayed.\n\nIf `connectionSuccess = true`, only `mqttVersion` is relevant.\n\nIf `connectionSuccess = false`, error-related fields\n(`errorMessage`, `errorCode`, `errorText`) are relevant.\n",
+        "parameters": [
+          {
+            "name": "conn-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get was successfully processed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MqttConnectionTestResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "A test command job is already in progress.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Signals that a POST command shall be called to Initiate the test on the connection before.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mqtt_Testing_Connections"
+        ],
+        "description": "Cancels the in progress connection test identified by <conn-name>.",
+        "parameters": [
+          {
+            "name": "conn-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete was successfully processed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "There is no test in progress for the specified connection.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/edit-certificates": {
+      "post": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Create temporary PKI",
+        "description": "Creates a temporary PKI used while editing or creating MQTT endpoints.\n\nIf `endpointName` is provided, the PKI is copied from that endpoint.\n\nIf `endpointName` is null, an empty PKI is created.\n\nChanges are persisted only when endpoint configuration\nis later committed.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "endpointName": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Temporary PKI created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "pkiSessionId"
+                  ],
+                  "properties": {
+                    "pkiSessionId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/edit-certificates/{session-GUID}": {
+      "delete": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Delete temporary PKI",
+        "description": "Removes the temporary PKI without changing the corresponding endpoint.The session GUID is invalidated.",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/edit-certificates/{session-GUID}/trusted": {
+      "get": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Get trusted certificates",
+        "description": "Get the list of trusted application certificates summaries.",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "validTo": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "thumbprint": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Import trusted certificate",
+        "description": "Import a trusted application certificate (.crt/.perm). The file in PEM format containing the public digital certificates trusted by the client.",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-x509-ca-cert": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/edit-certificates/{session-GUID}/trusted/{tumbprint}": {
+      "get": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Get trusted certificate details",
+        "description": "Get the given trusted certificate details.",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tumbprint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "validTo": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "storePath": {
+                      "type": "string"
+                    },
+                    "applicationURL": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "string"
+                    },
+                    "domain": {
+                      "type": "string"
+                    },
+                    "subjectName": {
+                      "type": "string"
+                    },
+                    "issuerName": {
+                      "type": "string"
+                    },
+                    "validFrom": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "serialNumber": {
+                      "type": "string"
+                    },
+                    "thumbprint": {
+                      "type": "string"
+                    },
+                    "subjectDN": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DNEntry"
+                      }
+                    },
+                    "issuerDN": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DNEntry"
+                      }
+                    },
+                    "subjectAlternativeName": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DNEntry"
+                      }
+                    },
+                    "keyUsages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "description": "Deletes the certificate.",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tumbprint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/edit-certificates/{session-GUID}/rejected": {
+      "get": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Get rejected certificates",
+        "description": "Get the rejected application certificates summaries. The response json is identical with that in GET /runtime/mqtt/edit-certificates/<session-GUID>/trusted",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "validTo": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "thumbprint": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/edit-certificates/{session-GUID}/rejected/{tumbprint}": {
+      "get": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Get rejected certificate details",
+        "description": "Get the given rejected certificate details. Result json format is identical with that in /runtime/mqtt/edit-certificates/<session-GUID>/trusted/<tumbprint>",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tumbprint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "validTo": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "storePath": {
+                      "type": "string"
+                    },
+                    "applicationURL": {
+                      "type": "string"
+                    },
+                    "organization": {
+                      "type": "string"
+                    },
+                    "domain": {
+                      "type": "string"
+                    },
+                    "subjectName": {
+                      "type": "string"
+                    },
+                    "issuerName": {
+                      "type": "string"
+                    },
+                    "validFrom": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "serialNumber": {
+                      "type": "string"
+                    },
+                    "thumbprint": {
+                      "type": "string"
+                    },
+                    "subjectDN": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DNEntry"
+                      }
+                    },
+                    "issuerDN": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DNEntry"
+                      }
+                    },
+                    "subjectAlternativeName": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/DNEntry"
+                      }
+                    },
+                    "keyUsages": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "description": "Deletes the certificate.",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tumbprint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/edit-certificates/{session-GUID}/rejected/{thumbprint}/move-to-trusted": {
+      "post": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Move rejected certificate to trusted",
+        "description": "Moves a certificate identified by the <thumbprint> from the rejected folder to the trusted folder.",
+        "parameters": [
+          {
+            "name": "session-GUID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "thumbprint",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/download-broker-certificate": {
+      "post": {
+        "tags": [
+          "Mqtt_Management_of_Temporary_PKI_while_editing"
+        ],
+        "summary": "Download broker certificate",
+        "description": "Downloads the broker certificate into the Trusted folder.\n\nIf a Trusted certificate already exists, it is replaced.\n\n`pkiSessionId` and `pkiStore` are mutually exclusive.\nIf both are supplied, `pkiSessionId` takes precedence.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pkiSessionId": {
+                    "type": "string"
+                  },
+                  "pkiStore": {
+                    "type": "string"
+                  },
+                  "connectionName": {
+                    "type": "string"
+                  },
+                  "protocol": {
+                    "$ref": "#/components/schemas/MqttProtocol"
+                  },
+                  "hostname": {
+                    "type": "string"
+                  },
+                  "suffix": {
+                    "type": "string"
+                  },
+                  "port": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 65535
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "clientId": {
+                    "type": "string"
+                  },
+                  "authenticationType": {
+                    "$ref": "#/components/schemas/MqttAuthenticationType"
+                  },
+                  "userId": {
+                    "type": "string"
+                  },
+                  "proxySettings": {
+                    "$ref": "#/components/schemas/MqttProxySettings"
+                  }
+                },
+                "oneOf": [
+                  {
+                    "required": [
+                      "pkiSessionId"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "pkiStore"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The given (non-null) endpointName is not an existing endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method is not allowed (only POST is allowed for this Uri)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Indicates another error (unspecific internal server error).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/mqtt/special-placeholders": {
+      "get": {
+        "tags": [
+          "Mqtt_Special_Placeholders"
+        ],
+        "description": "Get the special placeholders.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/mqttSpecialPlaceholders"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized to access Uri",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/siemens840d/s840dconnection": {
+      "get": {
+        "tags": [
+          "Siemens_Sinumerik_840D"
+        ],
+        "description": "Retrieve all configured Siemens SINUMERIK 840D connections.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "allOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "Licensed",
+                          "Enabled-PLC",
+                          "ConnectionStatus",
+                          "ConnectionStatus-PLC"
+                        ],
+                        "properties": {
+                          "Licensed": {
+                            "type": "string"
+                          },
+                          "Enabled-PLC": {
+                            "type": "boolean"
+                          },
+                          "ConnectionStatus": {
+                            "type": "boolean"
+                          },
+                          "ConnectionStatus-PLC": {
+                            "type": "boolean"
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/sinumerik840dConnBasicOpt"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Siemens_Sinumerik_840D"
+        ],
+        "description": "Creates a new Siemens SINUMERIK 840D connection and persists the information in the configuration file. \nIf enabled it applies it immediately after a success confirmation. \nEach newly created connection to a data source has to be added into an existing address space.\n",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sinumerik840dConnBasicOpt"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/siemens840d/s840dconnection/{conn_name}": {
+      "parameters": [
+        {
+          "name": "conn_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Siemens_Sinumerik_840D"
+        ],
+        "description": "Retrieves the Siemens SINUMERIC 840D connection identified by name *conn_name*.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sinumerik840dConnBasicOpt"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Siemens_Sinumerik_840D"
+        ],
+        "description": "Updates an existing Siemens SINUMERIK 840D connection with the new information.\nIf changes are detected and if enabled it applies it immediately after a success confirmation.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sinumerik840dConnBasicOpt"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sinumerik840dConnPost"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Siemens_Sinumerik_840D"
+        ],
+        "description": "Deletes the Siemens SINUMERIK 840D connection identified by name *conn_name*.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/siemens840d/s840dconnection/{conn_name}/symbolfile": {
+      "parameters": [
+        {
+          "name": "conn_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "tags": [
+          "Siemens_Sinumerik_840D"
+        ],
+        "description": "Upload an AWL symbol file for the connection identified by name *conn_name*.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/siemens840d/s840dconnection/advanced/defaults": {
+      "get": {
+        "tags": [
+          "Siemens_Sinumerik_840D"
+        ],
+        "description": "Retrieves default advanced settings values.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sinumerik840dConnBasicOpt"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/focas/fsopenconnection": {
+      "get": {
+        "tags": [
+          "Fanuc"
+        ],
+        "description": "Retrieve all configured Fanuc connections.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fanucConns"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Fanuc"
+        ],
+        "description": "Creates a new Fanuc connection and persists the information in the configuration file. If enabled it applies it immediately after a succeess confirmation. Each newly created connection to a data source has to be added into an existing address space.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/fanucConn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/focas/fsopenconnection/{conn_name}": {
+      "get": {
+        "tags": [
+          "Fanuc"
+        ],
+        "description": "Retrieve configured Fanuc connection identified by <conn_name>.",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fanucConn"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Fanuc"
+        ],
+        "description": "Updates an existing Fanuc connection with the new information. If changes are detected and if enabled it applies it immediately after a succeess confirmation.",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/fanucConn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Fanuc"
+        ],
+        "description": "Deletes the Fanuc connection identified by name <conn_name> .",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/focas/fsopenconnection/{conn_name}/symbolfile": {
+      "put": {
+        "tags": [
+          "Fanuc"
+        ],
+        "description": "Upload an TXT symbol file for the connection identified by name `{conn_name}`.",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/focas/fsopenconnection/advanced/defaults": {
+      "get": {
+        "tags": [
+          "Fanuc"
+        ],
+        "description": "Retrieves default advanced settings values.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fanucConn"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/allenbradley/connections": {
+      "get": {
+        "tags": [
+          "Allen_Bradley"
+        ],
+        "description": "Retrieve all configured Allen-Bradley connections.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allenbradleyConns"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Allen_Bradley"
+        ],
+        "description": "Creates a new Allen_Bradley connection and applies it immediately after a success confirmation. Each newly created connection to a data source has to be added into an existing address space.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/allenbradleyConn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/allenbradley/connection/{conn_name}": {
+      "get": {
+        "tags": [
+          "Allen_Bradley"
+        ],
+        "description": "Retrieve the Allen_Bradley connection identified by name <conn_name> .",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allenbradleyConn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Allen_Bradley"
+        ],
+        "description": "Updates an existing Allen_Bradley connection with the new information and applies it immediately after a success confirmation.",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/allenbradleyConn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Allen_Bradley"
+        ],
+        "description": "Deletes the Allen_Bradley connection identified by name <conn_name> .",
+        "parameters": [
+          {
+            "name": "conn_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runtime/allenbradley/connection/advanced/defaults": {
+      "get": {
+        "tags": [
+          "Allen_Bradley"
+        ],
+        "description": "Retrieves default advanced settings values.",
+        "responses": {
+          "200": {
+            "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/allenbradleyConn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "Not Acceptable. Default user password was not changed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -12598,6 +15768,1338 @@
             }
           }
         }
+      },
+      "mqttLua": {
+        "type": "object",
+        "required": [
+          "script",
+          "nodes"
+        ],
+        "properties": {
+          "script": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "mqttEnabledState": {
+        "type": "object",
+        "required": [
+          "enabled"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "mqttCommonSettings": {
+        "type": "object",
+        "required": [
+          "clientIdPrefix"
+        ],
+        "properties": {
+          "clientIdPrefix": {
+            "type": "string"
+          }
+        }
+      },
+      "mqttConnectionName": {
+        "type": "object",
+        "required": [
+          "connectionName"
+        ],
+        "properties": {
+          "connectionName": {
+            "type": "string"
+          }
+        }
+      },
+      "variableDisplayPath": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "placeholder",
+                "string"
+              ]
+            },
+            "value": {
+              "type": "string",
+              "description": "The field \"payloadDefinition/destinations/displayPath/value\" is not present if \"payloadDefinition/destinations/displayPath/type\" is \"placeholder\"."
+            },
+            "displayNameElements": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "keyName",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "mqttSubscribeGet": {
+        "type": "object",
+        "required": [
+          "addressSpace",
+          "connectionName",
+          "enabled",
+          "mqttQoS",
+          "payloadDefinition",
+          "payloadFormat",
+          "requestName",
+          "topicName"
+        ],
+        "properties": {
+          "addressSpace": {
+            "type": "string",
+            "description": "The \"addressSpace\" field is only stored by the Mqtt module and it is not validated or used in any way.The caller is responsible to manage the session type to address space mapping(see runtime/uacore/sights/conn-filtering/sessions-mapping).The session type for a publish request is the name of the publish request, prefixed by \"MqttSubscriber\\_\"."
+          },
+          "connectionName": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "mqttQoS": {
+            "type": "string",
+            "enum": [
+              "Level0_AtMostOnce",
+              "Level1_AtLeastOnce",
+              "Level2_ExactlyOnce"
+            ]
+          },
+          "payloadDefinition": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "path",
+                "destinations",
+                "displayNameElements"
+              ],
+              "properties": {
+                "path": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "integer"
+                      }
+                    ]
+                  }
+                },
+                "destinations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "sourceData"
+                    ],
+                    "properties": {
+                      "sourceData": {
+                        "type": "string",
+                        "enum": [
+                          "json-value",
+                          "nothing"
+                        ]
+                      },
+                      "nodeId": {
+                        "type": "string",
+                        "description": "The fields \"nodeId\" and \"displayPath\" are semantically mutually exclusive.Use \"nodeId\" for the case a destination is fully specified by its nodeId.Use \"displayPath\" for the case a destination is specified by its displayPath (with placeholders)."
+                      },
+                      "displayPath": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/variableDisplayPath"
+                          }
+                        ]
+                      },
+                      "attributeId": {
+                        "type": "string",
+                        "enum": [
+                          "Value"
+                        ]
+                      },
+                      "placeholder": {
+                        "type": "string",
+                        "description": "The \"placeholder\" member is a string in which the caller can serialize any useful information linked to the current destination. It will be just stored by the Mqtt module and it is not validated, nor used, in any way."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "payloadFormat": {
+            "type": "string"
+          },
+          "requestName": {
+            "type": "string"
+          },
+          "topicName": {
+            "type": "string"
+          }
+        }
+      },
+      "subscribeRequestIdModel": {
+        "type": "object",
+        "required": [
+          "requestId"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "description": "The \"requestId\" member is a generated unique id (GUID). It is used as a key to reference the Subscribe Request in a Publish Request triggered by MQTT definition (\"dataRowTrigger\"=\"mqttTriggered\")"
+          }
+        }
+      },
+      "mqttSubscribeRequestBodyModel": {
+        "type": "object",
+        "required": [
+          "connectionName",
+          "requestName",
+          "enabled",
+          "topicName",
+          "addressSpace",
+          "mqttQoS",
+          "payloadDefinition"
+        ],
+        "properties": {
+          "connectionName": {
+            "type": "string"
+          },
+          "requestName": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "topicName": {
+            "type": "string"
+          },
+          "addressSpace": {
+            "type": "string"
+          },
+          "mqttQoS": {
+            "type": "string"
+          },
+          "payloadDefinition": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "path",
+                "destinations",
+                "displayNameElements"
+              ],
+              "properties": {
+                "path": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "integer"
+                      }
+                    ]
+                  }
+                },
+                "destinations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "sourceData"
+                    ],
+                    "properties": {
+                      "sourceData": {
+                        "type": "string",
+                        "enum": [
+                          "json-value",
+                          "nothing"
+                        ]
+                      },
+                      "nodeId": {
+                        "type": "string",
+                        "description": "The fields \"nodeId\" and \"displayPath\" are semantically mutually exclusive.Use \"nodeId\" for the case a destination is fully specified by its nodeId.Use \"displayPath\" for the case a destination is specified by its displayPath (with placeholders)."
+                      },
+                      "displayPath": {
+                        "allOf": [
+                          {
+                            "$ref": "#/components/schemas/variableDisplayPath"
+                          }
+                        ]
+                      },
+                      "attributeId": {
+                        "type": "string",
+                        "enum": [
+                          "Value"
+                        ]
+                      },
+                      "placeholder": {
+                        "type": "string",
+                        "description": "The \"placeholder\" member is a string in which the caller can serialize any useful information linked to the current destination. It will be just stored by the Mqtt module and it is not validated, nor used, in any way."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "mqttSubscribeRequestToCreate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/mqttSubscribeRequestBodyModel"
+          }
+        ]
+      },
+      "mqttSubscribeRequests": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/subscribeRequestIdModel"
+            },
+            {
+              "$ref": "#/components/schemas/mqttSubscribeRequestBodyModel"
+            }
+          ]
+        }
+      },
+      "mqttSubscribeRequestBrief": {
+        "type": "object",
+        "required": [
+          "connectionName",
+          "requestName",
+          "enabled",
+          "topicName",
+          "mqttQoS"
+        ],
+        "properties": {
+          "connectionName": {
+            "type": "string"
+          },
+          "requestName": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "topicName": {
+            "type": "string"
+          },
+          "mqttQoS": {
+            "type": "string"
+          }
+        }
+      },
+      "mqttSubscribeRequestsBrief": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/subscribeRequestIdModel"
+            },
+            {
+              "$ref": "#/components/schemas/mqttSubscribeRequestBrief"
+            }
+          ]
+        }
+      },
+      "mqttPublishRequest": {
+        "type": "object",
+        "required": [
+          "requestName",
+          "enabled",
+          "topicName",
+          "addressSpace",
+          "mqttQoS",
+          "publishInterval",
+          "publishingMode",
+          "dataRowTrigger",
+          "samplingInterval",
+          "payloadFormat",
+          "template",
+          "placeholders"
+        ],
+        "properties": {
+          "requestName": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "topicName": {
+            "type": "string"
+          },
+          "addressSpace": {
+            "type": "string",
+            "description": "The \"addressSpace\" field is only stored by the Mqtt module and it is not validated or used in any way. The caller is responsible to manage the session type to address space mapping (see runtime/uacore/sights/conn-filtering/sessions-mapping). The session type for a publish request is the name of the publish request, prefixed by \"MqttPublisher_\"."
+          },
+          "mqttQoS": {
+            "type": "string",
+            "enum": [
+              "Level0_AtMostOnce",
+              "Level1_AtLeastOnce",
+              "Level2_ExactlyOnce"
+            ]
+          },
+          "publishInterval": {
+            "type": "integer"
+          },
+          "publishingMode": {
+            "type": "string",
+            "enum": [
+              "multipleSamples",
+              "singleSample",
+              "alarmMode"
+            ]
+          },
+          "dataRowTrigger": {
+            "type": "string",
+            "enum": [
+              "samplingTimer",
+              "dataChange",
+              "conditionalSamplingTimer",
+              "conditionalTrigger",
+              "advancedTrigger",
+              "mqttTriggered"
+            ],
+            "description": "samplingTimer (cannot be used with publishingMode = alarmMode); dataChange (this is the only acceptable one for publishingMode = alarmMode); conditionalSamplingTimer (cannot be used with publishingMode = alarmMode); conditionalTrigger (can be used only with  publishingMode = singleSample); advancedTrigger (can be used only with  publishingMode = singleSample); mqttTriggered (can be used only with  publishingMode = singleSample). For the case publisher is configured with dataRowTrigger=mqttTriggered the content of the previously described placeholders may have some particularities. Elements with the type=data could be defined with the display path instead of the node id. In this case, those entries wil be changed as follows \"ancestors\" member is not present and \"nodeId\" element is replaced by a new 'displayPath' member of type array."
+          },
+          "dataRowTimeout": {
+            "type": "integer",
+            "description": "The field \"dataRowTimeout\" only makes sense for \"dataRowTrigger\"=[\"conditionalTrigger\"|\"mqttTriggered\"|\"advancedTrigger\"] and specifies the max time to wait for the read of the data in the payload to complete."
+          },
+          "mqttTriggerSubscriberId": {
+            "type": "string",
+            "description": "The field \"mqttTriggerSubscriberId\" only makes sense for \"dataRowTrigger\"=\"mqttTriggered\" and specifies the id of the configured Mqtt Subscribe request to be used as a trigger for the current publisher"
+          },
+          "samplingInterval": {
+            "type": "integer",
+            "description": "The field \"samplingInterval\" makes no sense for \"publishingMode\" other than \"multipleSamples\"."
+          },
+          "payloadFormat": {
+            "type": "string",
+            "enum": [
+              "json",
+              "text(not implemented yet)",
+              "xml(not implemented yet)"
+            ]
+          },
+          "template": {
+            "type": "string",
+            "description": "The field \"template\" contains the template for the publish message, with placeholders in the format \"@name@\".",
+            "example": "{\"topic\":\"@topic@\", \"timestamp\":\"@ts@\", \"data\":{\"pos\":\"@pos@\", \"motorRPM\":\"@motorRPM@\"}}"
+          },
+          "placeholders": {
+            "type": "object",
+            "description": "The filed \"placeholders\" contains an array of objects defining each a variable node in the address space.",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "topicName",
+                  "clientId",
+                  "timestamp",
+                  "data"
+                ]
+              },
+              "displayName": {
+                "type": "string",
+                "description": "the 'key' of this placeholder; it is used as display name in the GUI; LUA script uses this key as an argument for the exposed LUA API for retrieving the value for the current variable node."
+              },
+              "script": {
+                "type": "string",
+                "description": "The filed \"script\" contains the code to be executed by LUA as a string"
+              },
+              "timeZone": {
+                "type": "string",
+                "enum": [
+                  "utc",
+                  "local"
+                ],
+                "description": "for \"type\"=\"timestamp\", a string with possible values \"utc\" and \"local\";"
+              },
+              "nodeId": {
+                "type": "string",
+                "description": "a string containing the node ID of the variable node(e.g., \"nodeId\":\"ns=4;s=SomeNode\"). For \"type\"=\"data\", a string containing the node ID of the node whose value is to be replaced (e.g., \"nodeId\":\"ns=4;s=SomeNode\")."
+              },
+              "ancestors": {
+                "type": "array",
+                "description": "for \"type\"=\"data\", a list of strings representing the node IDs of the ancestors of the subscribed node. This is for GUI usage only; the backend will simply store and retrieve it back.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "attributeId": {
+                "type": "string",
+                "enum": [
+                  "values(only this it is possible)",
+                  "timestamp",
+                  "quality",
+                  "dataType"
+                ],
+                "description": "a string containing the (pseudo-UA) attribute to be substituted here. For \"type\"=\"data\", a string containing the (pseudo-UA) attribute to be substituted here. TBD fields describing the substitution rules for text and XML formats (how to deal with a missing value, arrays, etc)"
+              },
+              "format": {
+                "type": "string",
+                "enum": [
+                  "defaultFormat",
+                  "stringIsJson"
+                ],
+                "description": "a string describing how the value is to be formatted in the publish message."
+              },
+              "displayPath": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/variableDisplayPath"
+                  }
+                ]
+              }
+            }
+          },
+          "triggerSource": {
+            "type": "object",
+            "properties": {
+              "nodeId": {
+                "type": "string",
+                "description": "The field \"nodeId\" of the \"triggerSource\" object  is a string containing the node ID of the variable to use as trigger (e.g., \"nodeId\":\"ns=4;s=SomeNode\")."
+              },
+              "attributeId": {
+                "type": "string"
+              },
+              "samplingInterval": {
+                "type": "integer",
+                "description": "The field \"samplingInterval\" defines the sampling for the variable nodes involved in the logics of the advanced trigger (the placeholders below)"
+              },
+              "uiData": {
+                "nullable": true,
+                "type": "string"
+              },
+              "addressSpace": {
+                "type": "string",
+                "description": "The field \"addresSpace\" defines the address space used to localize the variables nodes used in the trigger definition"
+              },
+              "triggerValue": {
+                "type": "boolean",
+                "description": "The field \"triggerValue\" shall be used only for the trigger definition corresponding to \"dataRowTrigger\"=\"conditionalSamplingTimer\"."
+              },
+              "triggerEvent": {
+                "type": "string",
+                "enum": [
+                  "raising",
+                  "falling",
+                  "change"
+                ],
+                "description": "The field \"triggerEvent\" shall be used only for the trigger definition corresponding to \"dataRowTrigger\"=\"conditionalTrigger\"."
+              },
+              "variableDetails": {
+                "type": "object",
+                "properties": {
+                  "dataTypeNodeId": {
+                    "type": "string",
+                    "description": "The field \"dataTypeNodeId\" of the \"triggerSource\" object  is a string containing the node ID of the dataType of the variable to use as trigger (e.g. \"ns=0;i=1\", or simply \"i=1\")."
+                  },
+                  "selectorPath": {
+                    "type": "array",
+                    "description": "The field \"selectorPath\" only exists if the trigger logic is fired by a sub-element of the variable (an index in case of array variable or a struct member in case of structured data type).",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "mqttPublishRequestWithConnName": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/mqttConnectionName"
+          },
+          {
+            "$ref": "#/components/schemas/mqttPublishRequest"
+          }
+        ]
+      },
+      "mqttDisplayname": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "mqttChildren": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "displayName": {
+                  "type": "string"
+                },
+                "timeZone": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "mqttSpecialPlaceholders": {
+        "type": "array",
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/mqttDisplayname"
+            },
+            {
+              "$ref": "#/components/schemas/mqttChildren"
+            }
+          ]
+        }
+      },
+      "MqttConnection": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "connectionName": {
+            "type": "string"
+          },
+          "protocol": {
+            "$ref": "#/components/schemas/MqttProtocol"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "suffix": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535
+          },
+          "mqttVersion": {
+            "$ref": "#/components/schemas/MqttVersion"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "licensed": {
+            "type": "boolean"
+          },
+          "connectionState": {
+            "$ref": "#/components/schemas/MqttConnectionState"
+          },
+          "hasPublishers": {
+            "type": "boolean"
+          },
+          "hasSubscribers": {
+            "type": "boolean"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "trustedCertificatesOnly": {
+            "type": "boolean"
+          },
+          "authenticationType": {
+            "$ref": "#/components/schemas/MqttAuthenticationType"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "lastWillTestament": {
+            "$ref": "#/components/schemas/MqttLastWill"
+          },
+          "advancedSettings": {
+            "$ref": "#/components/schemas/MqttAdvancedSettings"
+          },
+          "proxySettings": {
+            "$ref": "#/components/schemas/MqttProxySettings"
+          }
+        }
+      },
+      "MqttConnectionCreate": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "connectionName",
+          "protocol",
+          "hostname",
+          "port",
+          "mqttVersion"
+        ],
+        "properties": {
+          "connectionName": {
+            "type": "string"
+          },
+          "protocol": {
+            "$ref": "#/components/schemas/MqttProtocol"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "suffix": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535
+          },
+          "mqttVersion": {
+            "$ref": "#/components/schemas/MqttVersion"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "trustedCertificatesOnly": {
+            "type": "boolean"
+          },
+          "authenticationType": {
+            "$ref": "#/components/schemas/MqttAuthenticationType"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "lastWillTestament": {
+            "$ref": "#/components/schemas/MqttLastWill"
+          },
+          "advancedSettings": {
+            "$ref": "#/components/schemas/MqttAdvancedSettings"
+          },
+          "proxySettings": {
+            "$ref": "#/components/schemas/MqttProxySettings"
+          }
+        }
+      },
+      "MqttConnectionUpdate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "connectionName": {
+            "type": "string",
+            "description": "New name if renaming connection"
+          },
+          "protocol": {
+            "$ref": "#/components/schemas/MqttProtocol"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "suffix": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535
+          },
+          "mqttVersion": {
+            "$ref": "#/components/schemas/MqttVersion"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "trustedCertificatesOnly": {
+            "type": "boolean"
+          },
+          "authenticationType": {
+            "$ref": "#/components/schemas/MqttAuthenticationType"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "lastWillTestament": {
+            "$ref": "#/components/schemas/MqttLastWill"
+          },
+          "advancedSettings": {
+            "$ref": "#/components/schemas/MqttAdvancedSettings"
+          },
+          "proxySettings": {
+            "$ref": "#/components/schemas/MqttProxySettings"
+          }
+        }
+      },
+      "MqttLastWill": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "retain": {
+            "type": "boolean"
+          },
+          "topicName": {
+            "type": "string"
+          },
+          "delayInterval": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "MqttAdvancedSettings": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cleanSession": {
+            "type": "boolean"
+          },
+          "cleanStart": {
+            "type": "boolean"
+          },
+          "cleanSessionTimeout": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "connectionTimeout": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "keepAlive": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "persistenceInFS": {
+            "type": "boolean"
+          },
+          "maxBufferedMessages": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "MqttProxySettings": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "proxyType": {
+            "$ref": "#/components/schemas/MqttProxyType"
+          },
+          "url": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "useAuthentication": {
+            "type": "boolean"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "MqttProtocol": {
+        "type": "string",
+        "enum": [
+          "tcp",
+          "ssl",
+          "ws",
+          "wss"
+        ]
+      },
+      "MqttVersion": {
+        "type": "string",
+        "enum": [
+          "v3_auto_mode",
+          "v3_1",
+          "v3_1_1",
+          "v5"
+        ]
+      },
+      "MqttConnectionState": {
+        "type": "string",
+        "enum": [
+          "connected",
+          "disconnected"
+        ]
+      },
+      "MqttAuthenticationType": {
+        "type": "string",
+        "enum": [
+          "anonymous",
+          "username",
+          "certificate",
+          "username_certificate"
+        ]
+      },
+      "MqttProxyType": {
+        "type": "string",
+        "enum": [
+          "none",
+          "socks",
+          "http"
+        ]
+      },
+      "MqttConnectionTestRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "connectionName",
+          "protocol",
+          "hostname",
+          "port",
+          "mqttVersion"
+        ],
+        "properties": {
+          "connectionName": {
+            "type": "string"
+          },
+          "protocol": {
+            "$ref": "#/components/schemas/MqttProtocol"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535
+          },
+          "mqttVersion": {
+            "$ref": "#/components/schemas/MqttVersion"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "trustedCertificatesOnly": {
+            "type": "boolean"
+          },
+          "authenticationType": {
+            "$ref": "#/components/schemas/MqttAuthenticationType"
+          },
+          "username": {
+            "type": "string"
+          },
+          "lastWillTestament": {
+            "$ref": "#/components/schemas/MqttConnectionTestLastWill"
+          },
+          "advancedSettings": {
+            "$ref": "#/components/schemas/MqttConnectionTestAdvancedSettings"
+          }
+        }
+      },
+      "MqttConnectionTestLastWill": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "retain": {
+            "type": "boolean"
+          },
+          "topicName": {
+            "type": "string"
+          }
+        }
+      },
+      "MqttConnectionTestAdvancedSettings": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cleanSession": {
+            "type": "boolean"
+          },
+          "connectionTimeout": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "keepAlive": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "MqttConnectionTestResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "connectionSuccess",
+          "commonDetails"
+        ],
+        "properties": {
+          "connectionSuccess": {
+            "type": "boolean",
+            "description": "Indicates whether the MQTT connection test succeeded"
+          },
+          "commonDetails": {
+            "type": "array",
+            "description": "Common diagnostic details from the Paho library",
+            "items": {
+              "$ref": "#/components/schemas/MqttConnectionTestDetail"
+            }
+          },
+          "mqttVersion": {
+            "$ref": "#/components/schemas/MqttVersion"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "errorText": {
+            "type": "string"
+          }
+        }
+      },
+      "MqttConnectionTestDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "infoPos": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 65535
+          },
+          "infoKey": {
+            "type": "string"
+          },
+          "infoVal": {
+            "type": "string"
+          }
+        }
+      },
+      "DNEntry": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "sinumerik840dConnPost": {
+        "type": "object",
+        "required": [
+          "NCK",
+          "PLC"
+        ],
+        "properties": {
+          "NCK": {
+            "type": "object",
+            "required": [
+              "Message",
+              "Restart"
+            ],
+            "properties": {
+              "Message": {
+                "type": "string"
+              },
+              "Restart": {
+                "type": "boolean"
+              }
+            }
+          },
+          "PLC": {
+            "type": "object",
+            "required": [
+              "Message",
+              "Restart"
+            ],
+            "properties": {
+              "Message": {
+                "type": "string"
+              },
+              "Restart": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "sinumerik840dConnBasicOpt": {
+        "type": "object",
+        "required": [
+          "Name",
+          "Address",
+          "Port",
+          "Enabled",
+          "EnableNCK",
+          "EnablePLC",
+          "EnableNCUAlarm",
+          "EnableNCKTooling",
+          "ConnectionTimeout",
+          "ReconnectRetryCounter",
+          "ReconnectRetryPeriod",
+          "MaxExecutingServices",
+          "RequestTimeout",
+          "ServiceTimeout",
+          "TSAPNCK",
+          "TSAPPLC",
+          "AMQPLC",
+          "AMQNCK",
+          "AWLFileName",
+          "SDFIFileName",
+          "ReadOnlyNCU",
+          "ReadOnlyPLC"
+        ],
+        "properties": {
+          "Name": {
+            "description": "Connection name.",
+            "type": "string"
+          },
+          "Address": {
+            "description": "Server hostname or ip address.",
+            "type": "string"
+          },
+          "Port": {
+            "description": "Protocol TCP port number. Default = 102.",
+            "type": "integer",
+            "minimum": 0,
+            "default": 102
+          },
+          "Enabled": {
+            "description": "Enable status of the connection",
+            "type": "boolean"
+          },
+          "EnableNCK": {
+            "description": "Create a connection to the SINUMERIK 840D NCK component.",
+            "type": "boolean"
+          },
+          "EnablePLC": {
+            "description": "Create a connection to the SINUMERIK 840D PLC component.",
+            "type": "boolean"
+          },
+          "EnableNCUAlarm": {
+            "description": "Enable NCU Alarm.",
+            "type": "boolean"
+          },
+          "EnableNCKTooling": {
+            "type": "boolean"
+          },
+          "ConnectionTimeout": {
+            "description": "Connection \"watchdog\" timeout. Used to monitor the connection.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "ReconnectRetryCounter": {
+            "description": "Consecutive reconnect attempts delay.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "ReconnectRetryPeriod": {
+            "description": "Reconnect attempts limit. 0 = no limit.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "MaxExecutingServices": {
+            "description": "Number of maximum concurrent executing services.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "RequestTimeout": {
+            "description": "S7 Protocol request timeout.",
+            "type": "integer",
+            "minimum": 1000
+          },
+          "ServiceTimeout": {
+            "description": "Maximum allowed time for a service completion.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "TSAPNCK": {
+            "description": "NCK Destination TSAP.",
+            "type": "string"
+          },
+          "TSAPPLC": {
+            "description": "PLC Destination TSAP.",
+            "type": "string"
+          },
+          "AMQPLC": {
+            "type": "integer"
+          },
+          "AMQNCK": {
+            "type": "integer"
+          },
+          "AWLFileName": {
+            "type": "string"
+          },
+          "SDFIFileName": {
+            "type": "string"
+          },
+          "ReadOnlyNCU": {
+            "type": "boolean"
+          },
+          "ReadOnlyPLC": {
+            "type": "boolean"
+          }
+        }
+      },
+      "fanucConn": {
+        "type": "object",
+        "required": [
+          "Name",
+          "Address",
+          "Enabled",
+          "Port",
+          "txtFileName"
+        ],
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Address": {
+            "type": "string"
+          },
+          "Enabled": {
+            "type": "boolean"
+          },
+          "txtFileName": {
+            "type": "string",
+            "description": "Name of optional PMC variable definition file, maybe empty string"
+          },
+          "Port": {
+            "type": "integer"
+          }
+        }
+      },
+      "fanucConns": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/fanucConn"
+            }
+          ]
+        }
+      },
+      "allenbradleyConn": {
+        "type": "object",
+        "required": [
+          "Name",
+          "Address",
+          "Enabled",
+          "Port",
+          "RequestTimeout",
+          "ConnectionTimeout",
+          "ReconnectRetryPeriod",
+          "ReconnectRetryCounter",
+          "ServiceTimeout",
+          "ExpandArrays",
+          "OptimizeRead",
+          "OptimizeWrite",
+          "SymbolicAddressing"
+        ],
+        "properties": {
+          "Address": {
+            "type": "string"
+          },
+          "ConnectionTimeout": {
+            "type": "integer"
+          },
+          "Enabled": {
+            "type": "boolean"
+          },
+          "Name": {
+            "type": "string"
+          },
+          "Port": {
+            "type": "integer"
+          },
+          "ReconnectRetryCounter": {
+            "type": "integer"
+          },
+          "ReconnectRetryPeriod": {
+            "type": "integer"
+          },
+          "RequestTimeout": {
+            "type": "integer"
+          },
+          "ServiceTimeout": {
+            "type": "integer"
+          },
+          "ExpandArrays": {
+            "type": "boolean"
+          },
+          "OptimizeRead": {
+            "type": "boolean"
+          },
+          "OptimizeWrite": {
+            "type": "boolean"
+          },
+          "SymbolicAddressing": {
+            "type": "boolean"
+          }
+        }
+      },
+      "allenbradleyConns": {
+        "type": "array",
+        "items": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/allenbradleyConn"
+            }
+          ]
+        }
       }
     },
     "securitySchemes": {
@@ -12605,7 +17107,7 @@
         "type": "apiKey",
         "in": "header",
         "name": "Auth",
-        "description": "Custom authentication header.\n\nFormat:\nUser=<url-encoded-user>;Signature=<url-encoded-base64-signature>\n\nExample:\nAuth: User=john%20doe;Signature=UjgyDTg2yTswMCuATEZbrRrKkdSA46zaTHXt6BO8aAg%3D\n\nAuthentication flow:\n1. Call POST /runtime/core/auth/by-password\n2. Compute SHA256(serverNonce + clientNonce)\n3. Base64 encode the hash\n4. Send Auth header on subsequent requests"
+        "description": "Custom authentication header.\n\nFormat:\nUser=<url-encoded-user>;Signature=<url-encoded-base64-signature>\n\nExample:\nAuth: User=john%20doe;Signature=UjgyDTg2yTswMCuATEZbrRrKkdSA46zaTHXt6BO8aAg%3D\n\nAuthentication flow:\n1. Call POST /runtime/core/auth/by-password\n2. Compute SHA256(serverNonce + clientNonce)\n3. Base64 encode the hash\n4. Send Auth header on subsequent requests\n"
       }
     }
   }
