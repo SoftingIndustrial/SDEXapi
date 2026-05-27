@@ -15,10 +15,11 @@
 <div id="swagger-ui"></div>
 <script>
 window.onload = function () {
+	const cacheBuster = new Date().getTime();
     SwaggerUIBundle({
         urls: [
-            { url: "./SDEX Suite Linux.json", name: "Linux" },
-            { url: "./SDEX Suite Windows.json", name: "Windows" }
+            { url: "./SDEX Suite Linux.json?cb=" + cacheBuster, name: "Linux" },
+            { url: "./SDEX Suite Windows.json?cb=" + cacheBuster, name: "Windows" }
         ],
         dom_id: '#swagger-ui',
         deepLinking: true,
