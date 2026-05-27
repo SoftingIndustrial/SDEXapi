@@ -75,6 +75,7 @@ tags:
 - name: Allen_Bradley
 - name: Siemens_S7_32
 - name: Siemens_S7_72
+- name: Modbus
 paths:
   /runtime/core/auth/by-password:
     post:
@@ -13301,6 +13302,293 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
+  /runtime/modbus/modbusconnection:
+    get:
+      tags:
+      - Modbus
+      description: Retrieve all configured Modbus connections.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modbusConns'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    put:
+      tags:
+      - Modbus
+      description: 'Creates a new Modbus connection and persists the information in
+        the configuration file.
+
+        If enabled it applies it immediately after a succeess confirmation.
+
+        Each newly created connection to a data source has to be added into an existing
+        address space.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - type: object
+                required:
+                - Name
+                - Address
+                - Enabled
+              - $ref: '#/components/schemas/modbusBasicOpt'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/modbus/modbusconnection/{conn_name}:
+    parameters:
+    - name: conn_name
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      tags:
+      - Modbus
+      description: Retrieve configured Modbus connection identified by *conn_name*.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modbusBasicOptGetResponse'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    post:
+      tags:
+      - Modbus
+      description: 'Updates an existing Modbus connection with the new information.
+
+        If changes are detected and if enabled it applies it immediately after a succeess
+        confirmation.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/modbusBasicOpt'
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+    delete:
+      tags:
+      - Modbus
+      description: Deletes the Modbus connection identified by name *conn_name*.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/modbus/modbusconnection/{conn_name}/symbolfile:
+    parameters:
+    - name: conn_name
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      tags:
+      - Modbus
+      description: Upload an TXT symbol file for the connection identified by name
+        *conn_name*.
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+  /runtime/modbus/modbusconnection/advanced/defaults:
+    get:
+      tags:
+      - Modbus
+      description: Retrieves default advanced settings values.
+      responses:
+        '200':
+          description: OK success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/modbusBasicOptGetResponse'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        406:
+          description: Not Acceptable. Default user password was not changed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
 components:
   schemas:
     ResponseOthers:
@@ -16420,7 +16708,7 @@ components:
           minimum: 0
           default: 0
         ReconnectRetryPeriod:
-          description: econnect attempts limit. 0 = no limit.
+          description: Reconnect attempts limit. 0 = no limit.
           type: integer
           minimum: 0
           default: 1000
@@ -16478,6 +16766,132 @@ components:
           Licensed:
             type: boolean
       - $ref: '#/components/schemas/siemensS732BasicOptGetRequest'
+    modbusBasicOpt:
+      type: object
+      properties:
+        Name:
+          description: Connection name.
+          type: string
+        Address:
+          description: Server hostname or ip address.
+          type: string
+        Enabled:
+          description: Enable status of the connection.
+          type: boolean
+        txtFileName:
+          description: The name of the symbol definition file.
+          type: string
+        Port:
+          description: Protocol TCP port number. Default = 502.
+          type: integer
+          minimum: 0
+          default: 502
+        Unitid:
+          description: The unitid of the item (address of Modbus subdevice).
+          type: integer
+          minimum: 0
+          default: 1
+        RequestTimeout:
+          description: S7 Protocol request timeout.
+          type: integer
+          minimum: 0
+          default: 3000
+        ConnectionTimeout:
+          description: "Connection \u201Cwatchdog\u201D timeout. Used to monitor the\
+            \ connection."
+          type: integer
+          minimum: 0
+          default: 10000
+        ReconnectRetryPeriod:
+          description: Reconnect attempts limit. 0 = no limit.
+          type: integer
+          minimum: 0
+          default: 1000
+        ReconnectRetryCounter:
+          description: Consecutive reconnect attempts delay.
+          type: integer
+          minimum: 0
+          default: 0
+        ServiceTimeout:
+          description: Maximum allowed time for a service completion.
+          type: integer
+          minimum: 0
+          default: 60000
+        LowByteFirst:
+          type: boolean
+          default: false
+        LowWordFirst:
+          type: boolean
+          default: false
+        LowDWordFirst:
+          type: boolean
+          default: false
+        AddressOffset:
+          description: Address offset to add to the addresses retrieved from the item
+            syntax. With m_addressOffset=-1 register address 1 becomes 0 in the requests.
+          type: integer
+          minimum: 0
+          default: 0
+        CharOrder:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: 'The order of the (8bit) characters within a register.
+
+
+            The values as the following meanings:
+
+            - 0: first character is in high byte, next character in low byte
+
+            - 1: first character is in low byte, next character in high byte
+
+            - 2: character is in low byte, high byte is ignored
+
+            - 3: character is in high byte, low byte is ignored
+
+            '
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+    modbusBasicOptGetResponse:
+      allOf:
+      - $ref: '#/components/schemas/modbusBasicOpt'
+      - type: object
+        required:
+        - Name
+        - Address
+        - Enabled
+        - txtFileName
+        - Port
+        - Unitid
+        - RequestTimeout
+        - ConnectionTimeout
+        - ReconnectRetryPeriod
+        - ReconnectRetryCounter
+        - ServiceTimeout
+        - LowByteFirst
+        - LowWordFirst
+        - LowDWordFirst
+        - AddressOffset
+        - CharOrder
+    modbusConns:
+      type: array
+      items:
+        allOf:
+        - $ref: '#/components/schemas/modbusBasicOptGetResponse'
+        - type: object
+          required:
+          - ConnectionStatus
+          - Licensed
+          properties:
+            ConnectionStatus:
+              type: boolean
+              default: false
+            Licensed:
+              type: boolean
+              default: false
   securitySchemes:
     AuthHeader:
       type: apiKey
