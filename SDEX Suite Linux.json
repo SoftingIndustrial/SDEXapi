@@ -249,6 +249,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -333,6 +343,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -365,6 +385,16 @@
         "responses": {
           "200": {
             "description": "Ok.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -431,6 +461,16 @@
                       "example": "authenticated-user-id"
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -504,6 +544,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -569,6 +619,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -616,6 +676,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -679,6 +749,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -726,6 +806,16 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -789,6 +879,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -830,6 +930,16 @@
                       "type": "string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -887,6 +997,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -930,8 +1050,28 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "410": {
             "description": "Gone.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -974,6 +1114,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreIdModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -1245,6 +1395,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -1382,6 +1542,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -1451,6 +1621,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -1501,6 +1681,36 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -1531,6 +1741,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1599,6 +1819,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -1649,6 +1879,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -1713,6 +1953,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreUsersFromGroupToRetrieve"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -1961,6 +2211,16 @@
               }
             }
           },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -1993,6 +2253,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2136,6 +2406,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreCertificatesDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -2364,6 +2644,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -2422,6 +2712,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2498,6 +2798,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -2566,6 +2876,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -2630,6 +2950,16 @@
               "application/octet-stream": {
                 "schema": {
                   "$ref": "#/components/schemas/coreFileModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -2802,6 +3132,16 @@
               }
             }
           },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -2832,8 +3172,28 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -2939,8 +3299,28 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3534,8 +3914,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized.",
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3544,8 +3924,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request.",
+          "401": {
+            "description": "Unauthorized.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3620,8 +4000,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized.",
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3630,8 +4010,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request.",
+          "401": {
+            "description": "Unauthorized.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3698,8 +4078,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized.",
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3708,8 +4088,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request.",
+          "401": {
+            "description": "Unauthorized.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3778,8 +4158,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized.",
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3788,8 +4168,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request.",
+          "401": {
+            "description": "Unauthorized.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3944,8 +4324,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized.",
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3954,8 +4334,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request.",
+          "401": {
+            "description": "Unauthorized.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4004,6 +4384,26 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -4026,6 +4426,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4074,6 +4484,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -4106,6 +4526,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -4154,6 +4584,26 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -4180,6 +4630,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreLogsModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -4284,6 +4744,26 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -4331,6 +4811,16 @@
               }
             }
           },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -4357,6 +4847,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreAuditFilesToRetrieve"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -4461,6 +4961,26 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -4487,6 +5007,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreLicenseDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -4527,6 +5057,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreFloatingServerToRetrieve"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -4633,6 +5173,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -4731,6 +5281,16 @@
               "application/octet-stream": {
                 "schema": {
                   "$ref": "#/components/schemas/coreFileModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -4943,6 +5503,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -4985,6 +5555,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5043,6 +5623,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Internal server error.",
             "content": {
@@ -5089,6 +5679,16 @@
               "application/octet-stream": {
                 "schema": {
                   "$ref": "#/components/schemas/coreFileModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -5143,6 +5743,16 @@
         "responses": {
           "200": {
             "description": "OK success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5211,6 +5821,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found.",
             "content": {
@@ -5263,6 +5883,16 @@
           },
           "400": {
             "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5508,6 +6138,26 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
+                }
+              }
+            }
+          },
           "406": {
             "description": "Not Acceptable. Default user password was not changed.",
             "content": {
@@ -5526,7 +6176,7 @@
         "tags": [
           "Core_Application_Settings"
         ],
-        "description": "Retrieves a set of application settings.The default value for the \"appName\" attribute is based on the product type and it is one of the following set \"edgeConnector 840D\", \"edgeConnector Siemens\", \"edgeConnector Modbus\", \"edgeAggregator\". Member \"countryCode\" represents the 2-letter country code, as defined by ISO 3166-1.",
+        "description": "Retrieves a set of application settings.The default value for the \"appName\" attribute is based on the product and it is \"SDEX Suite\".",
         "responses": {
           "200": {
             "description": "OK success.",
@@ -5534,6 +6184,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/coreApplicationSettingsToRetrieve"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseOthers"
                 }
               }
             }
@@ -22320,7 +22980,7 @@
         "properties": {
           "appName": {
             "type": "string",
-            "example": "edgeConnector <prod>"
+            "example": "SDEX Suite"
           },
           "location": {
             "type": "string",

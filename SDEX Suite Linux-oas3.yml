@@ -103,7 +103,7 @@ paths:
                     (16 to 512 bytes, or 128 to 4096 bits).
         required: true
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
@@ -121,7 +121,13 @@ paths:
                     description: The expiry time is the time at which the authentication
                       expires if not refreshed, expressed as the number of seconds
                       since 1970-01-01T00:00:00Z.
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -163,7 +169,7 @@ paths:
                   example: base64-string
         required: true
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
@@ -180,7 +186,13 @@ paths:
                     description: The expiry time is the time at which the authentication
                       expires if not refreshed, expressed as the number of seconds
                       since 1970-01-01T00:00:00Z.
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -199,13 +211,19 @@ paths:
       description: Logout is done by calling HTTP POST `runtime/core/auth/logout No
         input needs to be provided and no response is returned.
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -233,7 +251,7 @@ paths:
           example: admin
         required: true
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
@@ -246,7 +264,13 @@ paths:
                   userId:
                     type: string
                     example: authenticated-user-id
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -264,7 +288,7 @@ paths:
       - Core_Trace
       description: Get general trace settings.
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
@@ -289,7 +313,13 @@ paths:
                     type: boolean
                   traceTCPPort:
                     type: integer
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -324,13 +354,19 @@ paths:
                   type: integer
         required: true
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -348,7 +384,7 @@ paths:
       - Core_Trace
       description: Get trace levels of the trace topics
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
@@ -361,7 +397,13 @@ paths:
                       type: string
                     level:
                       type: string
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -392,13 +434,19 @@ paths:
                     type: string
         required: true
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -416,7 +464,7 @@ paths:
       - Core_Trace
       description: Get components and their enabled state
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
@@ -429,7 +477,13 @@ paths:
                       type: string
                     enabled:
                       type: boolean
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -460,13 +514,19 @@ paths:
                     type: boolean
         required: true
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -485,7 +545,7 @@ paths:
       description: Get trace level of all the trace topics. Returns the HTTP error
         500 if the trace level is not the same for all trace topics.
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
@@ -494,7 +554,13 @@ paths:
                 properties:
                   level:
                     type: string
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -520,13 +586,19 @@ paths:
                   type: string
         required: true
       responses:
-        200:
+        '200':
           description: Ok.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -544,7 +616,7 @@ paths:
       - Core_User_Management
       description: This operation provides a summary data of all users.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
@@ -552,8 +624,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/coreUsers'
-        410:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '410':
           description: Gone.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -578,13 +662,19 @@ paths:
               $ref: '#/components/schemas/coreUserToCreate'
         required: true
       responses:
-        200:
+        '200':
           description: Created.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreIdModel'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -610,25 +700,25 @@ paths:
           example: 396cd7a3-d171-40d5-9922-530a4cb62633
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreUserToRetrieve'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -661,25 +751,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreUserToModify'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -702,25 +792,25 @@ paths:
           type: string
         required: true
       responses:
-        202:
+        '202':
           description: Accepted.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -745,19 +835,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreUserPartOfGroupsToRetrieve'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -789,25 +885,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreUserPartOfGroupsToModify'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -833,19 +929,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreUserContextToRetrieve'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -874,19 +976,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreUserDescription'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -904,12 +1012,30 @@ paths:
       - Core_Group_Management
       description: Get data of all groups.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreGroupsToRetrieve'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
         406:
           description: Not Acceptable. Default user password was not changed.
           content:
@@ -927,19 +1053,25 @@ paths:
               $ref: '#/components/schemas/coreGroupToCreate'
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -964,19 +1096,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -999,19 +1137,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1035,19 +1179,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreUsersFromGroupToRetrieve'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1075,25 +1225,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreUserAddedToGroup'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1122,31 +1272,31 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        405:
+        '405':
           description: Method is not allowed.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1173,20 +1323,26 @@ paths:
             schema:
               $ref: '#/components/schemas/coreEditUserCertificateRequest'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreEditUserCertificateRespons'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -1209,19 +1365,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1251,25 +1413,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreEditUserCertificateUploadRequest'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1294,19 +1456,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreCertificatesDetailsResponse'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1338,25 +1506,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreFileModel'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1390,25 +1558,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreFileModel'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1437,19 +1605,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreCertificateDetails'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1477,19 +1651,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1518,19 +1698,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/coreFileModel'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1559,19 +1745,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/coreFileModel'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1601,19 +1793,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/coreFileModel'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1642,25 +1840,25 @@ paths:
             schema:
               $ref: '#/components/schemas/coreCertificateToCreate'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1696,20 +1894,26 @@ paths:
             schema:
               $ref: '#/components/schemas/coreEditUserCertificateDefaultOutgoing'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -1726,14 +1930,26 @@ paths:
       - Core_Ldap_Auth_Management
       description: Return the current configuration for the main ldap servers.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/LDAPConfigBody'
-        401:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '401':
           description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -1754,25 +1970,25 @@ paths:
             schema:
               $ref: '#/components/schemas/LDAPConfigPutBody'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1790,14 +2006,26 @@ paths:
       - Core_Ldap_Auth_Management
       description: Return the current configuration for the backup ldap servers.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/LDAPConfigBody'
-        401:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '401':
           description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -1818,25 +2046,25 @@ paths:
             schema:
               $ref: '#/components/schemas/LDAPConfigPutBody'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1860,25 +2088,25 @@ paths:
             schema:
               $ref: '#/components/schemas/LDAPConfigBody'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1902,25 +2130,25 @@ paths:
             schema:
               $ref: '#/components/schemas/LDAPConfigBody'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -1953,7 +2181,7 @@ paths:
                   - main
                   - backup
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
@@ -1964,19 +2192,19 @@ paths:
                 properties:
                   pkiSessionId:
                     type: string
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2000,25 +2228,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2053,25 +2281,25 @@ paths:
                 password:
                   type: string
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2096,7 +2324,7 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
@@ -2113,19 +2341,19 @@ paths:
                     type: string
                   thumbprint:
                     type: string
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2158,25 +2386,25 @@ paths:
               type: string
               format: binary
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
-          description: Unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2201,7 +2429,7 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
@@ -2218,19 +2446,19 @@ paths:
                     type: string
                   thumbprint:
                     type: string
-        401:
-          description: Unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2263,25 +2491,25 @@ paths:
               type: string
               format: binary
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
-          description: Unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2316,25 +2544,25 @@ paths:
               type: string
               format: binary
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
-          description: Unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2363,7 +2591,7 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
@@ -2431,19 +2659,19 @@ paths:
                     type: string
                   validTo:
                     type: string
-        401:
-          description: Unauthorized.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2462,12 +2690,24 @@ paths:
       description: Get the system status.The system status is either "running" or
         "halted".
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreSystemStatus'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
         406:
           description: Not Acceptable. Default user password was not changed.
           content:
@@ -2480,13 +2720,19 @@ paths:
       - Core_System
       description: Start the system. Will set the system into "running" status.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2504,13 +2750,19 @@ paths:
       - Core_System
       description: Stop the system. Will set the system into "halted" status.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2529,13 +2781,19 @@ paths:
       description: Restart the system (stop and then start again). Will set the system
         into "running" status.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2554,12 +2812,24 @@ paths:
       description: Retrieves the network interfaces IP information. Later used to
         compute addresable endpoint URLs.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreSystemNetif'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
         406:
           description: Not Acceptable. Default user password was not changed.
           content:
@@ -2573,13 +2843,19 @@ paths:
       description: Get the existent .log files (including filename and last modified
         time) stored into the currently configured trace files location.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreLogsModel'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2604,19 +2880,19 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/coreFileModel'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2634,12 +2910,24 @@ paths:
       - Core_Audit_Log
       description: Get general audit log settings.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreAuditLogSettingsToRetrieve'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
         406:
           description: Not Acceptable. Default user password was not changed.
           content:
@@ -2656,14 +2944,20 @@ paths:
             schema:
               $ref: '#/components/schemas/coreAuditLogSettingsToSet'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -2681,13 +2975,19 @@ paths:
       description: Get the existent .log files (including filename and last modified
         time) stored into the currently configured audit files location.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreAuditFilesToRetrieve'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2712,19 +3012,19 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/coreFileModel'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2744,12 +3044,24 @@ paths:
         value can be empty (unlimited license) or include the expiration date or not
         exist at all.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreInstalledLicensesToRetrieve'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
         406:
           description: Not Acceptable. Default user password was not changed.
           content:
@@ -2762,13 +3074,19 @@ paths:
       - Core_License
       description: Retrieve the license details. The system should be in running mode.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreLicenseDetails'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2787,13 +3105,19 @@ paths:
       description: Retrieve the configured floating license servers (up to 3). The
         system should be in running mode.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreFloatingServerToRetrieve'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2816,19 +3140,19 @@ paths:
             schema:
               $ref: '#/components/schemas/coreFloatingServerToConfigure'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2847,7 +3171,7 @@ paths:
       description: Get the number of licensing datapoints to be reserved when the
         application is started.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
@@ -2856,7 +3180,13 @@ paths:
                 properties:
                   reserved:
                     type: integer
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2882,19 +3212,19 @@ paths:
                 reserved:
                   type: integer
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2913,13 +3243,19 @@ paths:
       description: Get the server complete configuration archived in a zip file. Response
         content application/zip.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/coreFileModel'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2944,19 +3280,19 @@ paths:
             schema:
               $ref: '#/components/schemas/coreFileModel'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -2980,19 +3316,19 @@ paths:
             schema:
               $ref: '#/components/schemas/coreFileModel'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3011,19 +3347,19 @@ paths:
       description: Restores the configuration to the factory default. It keeps (does
         not overwrite) however, the IP settings and the licenses.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3041,13 +3377,19 @@ paths:
       - Core_Configuration_Download/Upload
       description: Gets a list with pre-defined configurations.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreConfigurationPredefinedToRetrieve'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3078,19 +3420,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3108,13 +3456,19 @@ paths:
       - Core_Configuration_Download/Upload
       description: Gets the list of available internal (automatic) backups.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreConfigurationInternalToRetrieve'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3138,19 +3492,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/octet-stream:
               schema:
                 $ref: '#/components/schemas/coreFileModel'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3173,19 +3533,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3209,19 +3575,25 @@ paths:
           type: string
         required: true
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3239,14 +3611,20 @@ paths:
       - Core_Configuration_Download/Upload
       description: Gets the settings for automatic backups.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreConfigAutoBackupSettingsToRetrieve'
-        400:
+        '400':
           description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
           content:
             application/json:
               schema:
@@ -3267,19 +3645,19 @@ paths:
             schema:
               $ref: '#/components/schemas/coreConfigAutoBackupSettingsToSet'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3298,31 +3676,31 @@ paths:
       description: Triggers the generation of the support data file as a zip archive
         and saves it in a temporary location.
       responses:
-        202:
+        '202':
           description: Accepted.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        405:
+        '405':
           description: Method not allowed / Invalid input.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3340,37 +3718,37 @@ paths:
       - Core_Support_Data
       description: Get the previously generated zip file.
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             text/html:
               schema:
                 type: string
-        401:
+        '401':
           description: Unauthorized.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        404:
+        '404':
           description: Not found.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        405:
+        '405':
           description: Method not allowed / Invalid input.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        503:
+        '503':
           description: Service Unavailable.
           content:
             application/json:
@@ -3389,12 +3767,24 @@ paths:
       description: Retrieves the product software version. Version format [MAJOR].[MINOR].[?SERVP].[BUILD]
         - 1.0.0.99
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreVersionToRetrieve'
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
         406:
           description: Not Acceptable. Default user password was not changed.
           content:
@@ -3406,18 +3796,21 @@ paths:
       tags:
       - Core_Application_Settings
       description: Retrieves a set of application settings.The default value for the
-        "appName" attribute is based on the product type and it is one of the following
-        set "edgeConnector 840D", "edgeConnector Siemens", "edgeConnector Modbus",
-        "edgeAggregator". Member "countryCode" represents the 2-letter country code,
-        as defined by ISO 3166-1.
+        "appName" attribute is based on the product and it is "SDEX Suite".
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/coreApplicationSettingsToRetrieve'
-        500:
+        '400':
+          description: Bad Request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOthers'
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -3440,19 +3833,19 @@ paths:
             schema:
               $ref: '#/components/schemas/coreApplicationSettingsToSet'
       responses:
-        200:
+        '200':
           description: OK success.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        400:
+        '400':
           description: Bad Request.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseOthers'
-        500:
+        '500':
           description: Internal server error.
           content:
             application/json:
@@ -14237,7 +14630,7 @@ components:
       properties:
         appName:
           type: string
-          example: edgeConnector <prod>
+          example: SDEX Suite
         location:
           type: string
           example: Munich
